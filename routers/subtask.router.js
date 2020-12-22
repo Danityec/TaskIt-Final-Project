@@ -3,7 +3,7 @@ const{ subtaskController} = require('../controllers/task.ctrl');
 
 const subtaskRouter = new Router(); 
 
-subtaskRouter.get('/',subtaskController.getSubasks);         
+subtaskRouter.get('/',subtaskController.getSubtasks);         
 subtaskRouter.get('/:id',subtaskController.getSubtask);      
 subtaskRouter.post('/',subtaskController.createSubtask);         
 subtaskRouter.put('/:id',subtaskController.updatSubtask);     
