@@ -4,14 +4,16 @@ const port = process.env.PORT || 3000;
 
 const taskRouter = require("./routers/task.router");
 const subtaskRouter = require("./routers/subtask.router");
+const userRouter = require("./routers/user.router");
 
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 
-app.use('/api/task', taskRouter.taskRouter);  
-app.use('/api/subtask', subtaskRouter.subtaskRouter);
+app.use('/api/tasks', taskRouter.taskRouter);  
+app.use('/api/subtasks', subtaskRouter.subtaskRouter);
+app.use('/api/users', userRouter.userRouter);
 
 
 app.use((err, req, res, next) => {
