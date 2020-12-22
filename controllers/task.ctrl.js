@@ -16,10 +16,10 @@ createTask = (req, res) => {
     const { body } = req
     const task = new Task();
     task.id = body.id
-    // order.price = body.price
-    // order.dishId = body.dishId
-    // order.restaurantId = body.restaurantId
-
+    task.name = body.name
+    task.category = body.name
+    task.status = body.status
+    
     task.save()
         .then(() => res.json({id:`${task.id}`}))
         .catch(err => console.log(err))

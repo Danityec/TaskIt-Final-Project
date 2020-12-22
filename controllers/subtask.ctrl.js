@@ -29,9 +29,8 @@ updateSubtask = (req, res) => {
     const { body } = req
     const subtask = {};
     subtask.id = body.id
-    // order.price = body.price
-    // order.dishId = body.dishId
-    // order.restaurantId = body.restaurantId
+    subtask.name = body.name
+    subtask.status = body.status
     
     const query = {id: req.params.id}
 

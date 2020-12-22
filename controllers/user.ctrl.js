@@ -29,9 +29,11 @@ updateUSer = (req, res) => {
     const { body } = req
     const user = {};
     user.id = body.id
-    // order.price = body.price
-    // order.dishId = body.dishId
-    // order.restaurantId = body.restaurantId
+    user.first_name = body.first_name
+    user.last_name = body.last_name
+    user.email = body.email
+    user.password = body.password
+
     
     const query = {id: req.params.id}
 
