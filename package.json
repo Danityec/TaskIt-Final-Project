@@ -1,0 +1,28 @@
+{
+  "name": "taskit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Danityec/TaskIt.git"
+  },
+  "author": "Danit Noa Yechezkel, Keren Halpert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Danityec/TaskIt/issues"
+  },
+  "homepage": "https://github.com/Danityec/TaskIt#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.11.8"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}

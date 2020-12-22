@@ -2,15 +2,15 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
 
-const taskRouter = require("./routers/routerTask");
-const subtaskRouter = require("./routers/routerSubtask");
+const taskRouter = require("./routers/task.router");
+const subtaskRouter = require("./routers/subtask.router");
 
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 
-app.use('/api/task', taskRouter.taskRouter);   // מי שיקבל את ('/api/restaurant) ידע לאיזה ראוטר ללכת
+app.use('/api/task', taskRouter.taskRouter);  
 app.use('/api/subtask', subtaskRouter.subtaskRouter);
 
 
