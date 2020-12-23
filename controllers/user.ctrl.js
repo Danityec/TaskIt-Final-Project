@@ -25,7 +25,7 @@ createUser = (req, res) => {
         .catch(err => console.log(err))
 }
 
-updateUSer = (req, res) => { 
+updateUser = (req, res) => { 
     const { body } = req
     const user = {};
     user.id = body.id

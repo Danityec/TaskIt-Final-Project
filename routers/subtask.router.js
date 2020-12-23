@@ -1,13 +1,12 @@
 const { Router } = require('express');
-const{ subtaskController} = require('../controllers/task.ctrl');
+const router = new Router(); 
 
-const subtaskRouter = new Router(); 
+const subtaskController = require('../controllers/subtask.ctrl');
 
-subtaskRouter.get('/',subtaskController.getSubtasks);         
-subtaskRouter.get('/:id',subtaskController.getSubtask);      
-subtaskRouter.post('/',subtaskController.createSubtask);         
-subtaskRouter.put('/:id',subtaskController.updatSubtask);     
-subtaskRouter.delete('/:id',subtaskController.deleteSubtask);  
+router.get('/', subtaskController.getSubtasks);         
+router.get('/:id', subtaskController.getSubtask);      
+router.post('/', subtaskController.createSubtask);         
+router.put('/:id', subtaskController.updateSubtask);     
+router.delete('/:id', subtaskController.deleteSubtask);  
 
-
-module.exports = { subtaskRouter };
+module.exports = { router };

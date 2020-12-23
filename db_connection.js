@@ -9,5 +9,5 @@ const options = {
     pass: DB_PASS
 };
 mongoose.connect(DB_HOST, options)
-        .then(() => console.log('connected' ))
+        .then(() => console.log('connected'))
         .catch(err => console.log(`connection error: ${err}`));
