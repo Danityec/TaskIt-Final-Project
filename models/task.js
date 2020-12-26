@@ -15,7 +15,7 @@ const shareSchema = new Schema({
 });
 
 const taskSchema = new Schema({
-    uniqueID: { type: Schema.ObjectId },
+    uniqueID: { type: Number },
     templateID: {type: Number},
     userID: {type: Number},
     share: [shareSchema],

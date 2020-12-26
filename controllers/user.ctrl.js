@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const User = require('../models/user');
 
 getUsers = (req, res) => {
     User.find({})
@@ -7,7 +7,7 @@ getUsers = (req, res) => {
 }
 
 getUser = (req, res) => {
-    User.find({ id: req.params.id })
+    User.find({uniqueID: req.params.id })
     .then(docs => res.json(docs))
     .catch(err => console.log(err))
 }
@@ -15,30 +15,30 @@ getUser = (req, res) => {
 createUser = (req, res) => {
     const { body } = req
     const user = new User();
-    user.id = body.id
-    // order.price = body.price
-    // order.dishId = body.dishId
-    // order.restaurantId = body.restaurantId
+    console.log(body)
+    user.uniqueID = body.uniqueID
+    user.firstName = body.firstName
+    user.lastName = body.lastName
+    user.email = body.email
+    user.admin = body.admin
 
-    User.save()
-        .then(() => res.json({id:`${user.id}`}))
+    user.save()
+        .then(() => res.json({uniqueID: `${user.uniqueID}`}))
         .catch(err => console.log(err))
 }
 
 updateUser = (req, res) => { 
     const { body } = req
     const user = {};
-    user.id = body.id
-    user.first_name = body.first_name
-    user.last_name = body.last_name
+    user.firstName = body.firstName
+    user.lastName = body.lastName
     user.email = body.email
-    user.password = body.password
+    user.admin = body.admin
 
-    
-    const query = {id: req.params.id}
+    const query = {uniqueID: req.params.uniqueID}
 
     User.updateOne(query, user)
-        .then(() => res.json({id:`${req.params.id}`}))
+        .then(() => res.json({uniqueID:`${req.params.uniqueID}`}))
         .catch(err => console.log(err))
 }
 

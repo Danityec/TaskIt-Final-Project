@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const reviewSchema = new Schema({
-    uniqueID: { type: Schema.ObjectId },
+    uniqueID: { type: Number },
     taskTemplateID: { type: String },
     userID: { type: String},
     title: {type: String},
