@@ -1,11 +1,11 @@
 const { Schema, model } = require('mongoose');
 
 const userSchema = new Schema({
-    id: { type: Number },
+    uniqueID: { type: Number },
     first_name: { type: String },
     last_name: { type: String },
     email: { type: String },
-    password: { type: String },
+    admin: { type: Boolean },
 
 }, { collection: 'users' });
 
