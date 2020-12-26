@@ -15,8 +15,6 @@ getUser = (req, res) => {
 createUser = (req, res) => {
     const { body } = req
     const user = new User();
-    console.log(body)
-    user.uniqueID = body.uniqueID
     user.firstName = body.firstName
     user.lastName = body.lastName
     user.email = body.email
@@ -43,8 +41,8 @@ updateUser = (req, res) => {
 }
 
 deleteUser = (req, res) => {     
-    User.deleteOne({id: req.params.id})
-        .then(() => res.json({id:`${req.params.id}`}))
+    User.deleteOne({uniqueID: req.params.uniqueID})
+        .then(() => res.json({uniqueID:`${req.params.uniqueID}`}))
         .catch(err => console.log(err))
 }
 

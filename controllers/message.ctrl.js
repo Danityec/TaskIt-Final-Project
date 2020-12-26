@@ -7,7 +7,7 @@ getMessages = (req, res) => {
 }
 
 getMessage = (req, res) => {
-    Message.find({ id: req.params.id })
+    Message.find({ uniqueID: req.params.uniqueID })
     .then(docs => res.json(docs))
     .catch(err => console.log(err))
 }
@@ -15,8 +15,13 @@ getMessage = (req, res) => {
 createMessage = (req, res) => {
     const { body } = req
     const message = new Message();
-    message.id = body.id
-    
+    message.uniqueID = body.uniqueID
+    message.senderID = body.senderID
+    message.receiverID = body.receiverID
+    message.read = body.read
+    message.timestamp = body.timestamp
+    message.title = body.title
+    message.message = body.message
 
     message.save()
         .then(() => res.json({id:`${message.id}`}))
