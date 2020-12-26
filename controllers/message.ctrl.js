@@ -16,9 +16,7 @@ createMessage = (req, res) => {
     const { body } = req
     const message = new Message();
     message.id = body.id
-    // order.price = body.price
-    // order.dishId = body.dishId
-    // order.restaurantId = body.restaurantId
+    
 
     message.save()
         .then(() => res.json({id:`${message.id}`}))

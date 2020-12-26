@@ -1,16 +1,16 @@
 const { Schema, model } = require('mongoose');
 
 const subTaskSchema = new Schema({
-    uniqueID: { type: Number },
+    uniqueID: { type: Schema.ObjectId },
     name: { type: String },
     status: { type: Boolean}
     
 });
 
 const taskSchema = new Schema({
-    uniqueID: { type: Number },
+    uniqueID: { type: Schema.ObjectId },
     templateID: {type: Number},
-    userID: {type,Number },
+    userID: {type: Number},
     name: { type: String },
     category: { type: String},
     status: { type: Boolean},

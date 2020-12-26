@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const messageSchema = new Schema({
-    uniqueID: { type: Number },
+    uniqueID: { type: Schema.ObjectId },
     senderID: { type: String },
     receiverID: { type: String},
     read: {type: Boolean},
