@@ -7,7 +7,7 @@ getTasks = (req, res) => {
 }
 
 getTask = (req, res) => {
-    Task.find({ uniqueID: req.params.id })
+    Task.findOne({ _id: req.params.id })
     .then(docs => res.json(docs))
     .catch(err => console.log(err))
 }
@@ -15,7 +15,7 @@ getTask = (req, res) => {
 createTask = (req, res) => {
     const { body } = req
     const task = new Task();
-    task.uniqueID = body.uniqueID
+    //task.uniqueID = body.uniqueID
     task.templateID = body.templateID
     task.userID = body.userID
     task.share = body.share
@@ -32,7 +32,7 @@ createTask = (req, res) => {
 updateTask = (req, res) => { 
     const { body } = req
     const task = {};
-   
+    //task.uniqueID = body.uniqueID
     task.templateID = body.templateID
     task.userID = body.userID
     task.share = body.share
@@ -41,15 +41,15 @@ updateTask = (req, res) => {
     task.status = body.status
     task.subTask = body.subTask
     
-    const query = {id: req.params.id}
-
+    const query = {_id: req.params.id}
+    console.log(task)
     Task.updateOne(query, task)
         .then(() => res.json({id:`${req.params.id}`}))
         .catch(err => console.log(err))
 }
 
 deleteTask = (req, res) => {     
-    Task.deleteOne({uniqueID: req.params.uniqueID})
+    Task.deleteOne({_id: req.params.id})
         .then(() => res.json({id:`${req.params.id}`}))
         .catch(err => console.log(err))
 }

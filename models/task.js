@@ -7,18 +7,18 @@ const subTaskSchema = new Schema({
     
 });
 
-const shareSchema = new Schema({
-    uniqueID: { type: Schema.ObjectId },
-    name: { type: String },
-    status: { type: Boolean}
+// const shareSchema = new Schema({
+//     uniqueID: { type: Schema.ObjectId },
+//     name: { type: String },
+//     status: { type: Boolean}
     
-});
+// });
 
 const taskSchema = new Schema({
-    uniqueID: { type: Number },
+    //uniqueID: { type: Number },
     templateID: {type: Number},
     userID: {type: Number},
-    share: [shareSchema],
+    share: {type: Array},
     name: { type: String },
     category: { type: String},
     status: { type: Boolean},

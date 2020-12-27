@@ -2,12 +2,12 @@ const Message = require('../models/message');
 
 getMessages = (req, res) => {
     Message.find({})
-    .then(docs => res.json(docs))
+    .then(docs =>  res.json(docs))
     .catch(err => console.log(err))
 }
 
 getMessage = (req, res) => {
-    Message.find({ uniqueID: req.params.uniqueID })
+    Message.findOne({ _id: req.params.id })
     .then(docs => res.json(docs))
     .catch(err => console.log(err))
 }
@@ -15,7 +15,6 @@ getMessage = (req, res) => {
 createMessage = (req, res) => {
     const { body } = req
     const message = new Message();
-    message.uniqueID = body.uniqueID
     message.senderID = body.senderID
     message.receiverID = body.receiverID
     message.read = body.read

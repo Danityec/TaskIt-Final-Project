@@ -6,7 +6,6 @@ const PORT = process.env.PORT || 3000;
 const taskRouter    = require("./routers/task.router");
 const userRouter    = require("./routers/user.router");
 const messageRouter = require("./routers/message.router");
-const reviewRouter  = require("./routers/review.router");
 
 
 app.use(express.json());
@@ -17,7 +16,6 @@ app.use(logger("dev"));
 app.use('/api/tasks', taskRouter.router);  
 app.use('/api/users', userRouter.router);
 app.use('/api/messages', messageRouter.router);
-app.use('/api/reviews', reviewRouter.router);
 
 
 app.use((err, req, res, next) => {
