@@ -20,4 +20,5 @@ const taskSchema = new Schema({
 }, { collection: 'tasks' });
 
 const Task = model('Task', taskSchema);
-module.exports = Task;
+
+module.exports = Task

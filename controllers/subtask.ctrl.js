@@ -1,21 +1,24 @@
 const Task = require('../models/task');
 
-getTasks = (req, res) => {
-    Task.find({})
-    .then(docs => res.json(docs))
+
+getSubTasks = (req, res) => {
+    Task.findOne({ _id: req.params.task })
+    .then(docs => {(docs["subTask"]); res.json(docs["subTask"])})
+    .catch(err => console.log(err))
+    
+}
+
+getSubTask = (req, res) => {
+    Task.findOne({ subtaskID: req.params.task })
+    .then(docs => {
+        console.log(docs["subTask" : `${req.params.subTask}`]); res.json(docs)
+    })
     .catch(err => console.log(err))
 }
 
-getTask = (req, res) => {
-    console.log(req.params.id)
-    Task.findOne({ _id: req.params.id })
-    .then(docs => {console.log(docs); res.json(docs)})
-    .catch(err => console.log(err))
-}
-
-createTask = (req, res) => {
+createSubTask = (req, res) => {
     const { body } = req
-    const task = new Task();
+    const subtask = new Task();
     task.templateID = body.templateID
     task.userID = body.userID
     task.share = body.share
@@ -24,14 +27,14 @@ createTask = (req, res) => {
     task.status = body.status
     task.subTask = body.subTask
 
-    task.save()
-        .then(() => res.json({_id:`${task.id}`}))
+    subtask.save()
+        .then(() => res.json({_id:`${subtask.id}`}))
         .catch(err => console.log(err))
 }
 
-updateTask = (req, res) => { 
+updateSubTask = (req, res) => { 
     const { body } = req
-    const task = {};
+    const subtask = {};
     task.templateID = body.templateID
     task.userID = body.userID
     task.share = body.share
@@ -42,22 +45,21 @@ updateTask = (req, res) => {
     
     const query = {_id: req.params.id}
 
-    Task.updateOne(query, task)
+    Task.updateOne(query, subtask)
         .then(() => res.json({id:`${req.params.id}`}))
         .catch(err => console.log(err))
 }
 
-deleteTask = (req, res) => {     
+deleteSubTask = (req, res) => {     
     Task.deleteOne({_id: req.params.id})
         .then(() => res.json({id:`${req.params.id}`}))
         .catch(err => console.log(err))
 }
 
 module.exports = { 
-    getTasks, 
-    getTask, 
-    createTask, 
-    updateTask, 
-    deleteTask
-};
-
+    getSubTasks, 
+    getSubTask, 
+    createSubTask, 
+    updateSubTask, 
+    deleteSubTask
+}
