@@ -62,6 +62,9 @@ table.table tr th, table.table tr td {
 table.table-striped tbody tr:nth-of-type(odd) {
 	background-color: #fcfcfc;
 }
+table.table-striped.item-table tbody tr:nth-of-type(odd) {
+	background-color: #ffffff;
+}
 table.table-striped.table-hover tbody tr:hover {
 	background: #f5f5f5;
 }
@@ -124,15 +127,15 @@ table.table td a {
     margin: 0 5px;
     min-width: 24px;
 }    
-.task-card button {
+.card-body button {
 	border: none;
 	background: none;
 	padding-left: 20px;
 }
-.task-card button.edit {
+button.edit {
     color: #FFC107;
 }
-.task-card button.delete {
+button.delete {
     color: #E34724;
 }
 .task-card button i {
