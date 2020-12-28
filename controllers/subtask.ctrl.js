@@ -9,9 +9,9 @@ getSubTasks = (req, res) => {
 }
 
 getSubTask = (req, res) => {
-    Task.findOne({ subtaskID: req.params.task })
+    Task.findOne({subtaskID: req.params.subtask.id.subtaskID})
     .then(docs => {
-        console.log(docs["subTask" : `${req.params.subTask}`]); res.json(docs)
+        console.log(docs); res.json(docs)
     })
     .catch(err => console.log(err))
 }

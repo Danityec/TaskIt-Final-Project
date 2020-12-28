@@ -7,7 +7,6 @@ getTasks = (req, res) => {
 }
 
 getTask = (req, res) => {
-    console.log(req.params.id)
     Task.findOne({ _id: req.params.id })
     .then(docs => {console.log(docs); res.json(docs)})
     .catch(err => console.log(err))
