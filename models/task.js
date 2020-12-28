@@ -1,23 +1,16 @@
 const { Schema, model } = require('mongoose');
 
 const subTaskSchema = new Schema({
-    uniqueID: { type: Schema.ObjectId },
+    subtaskID: { type: String },
     name: { type: String },
     status: { type: Boolean}
     
 });
 
-// const shareSchema = new Schema({
-//     uniqueID: { type: Schema.ObjectId },
-//     name: { type: String },
-//     status: { type: Boolean}
-    
-// });
-
 const taskSchema = new Schema({
     //uniqueID: { type: Number },
-    templateID: {type: Number},
-    userID: {type: Number},
+    templateID: {type: String},
+    userID: {type: String},
     share: {type: Array},
     name: { type: String },
     category: { type: String},

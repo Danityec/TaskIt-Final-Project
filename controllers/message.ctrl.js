@@ -8,7 +8,7 @@ getMessages = (req, res) => {
 
 getMessage = (req, res) => {
     Message.findOne({ _id: req.params.id })
-    .then(docs => res.json(docs))
+    .then(docs => {console.log(docs); res.json(docs)})
     .catch(err => console.log(err))
 }
 

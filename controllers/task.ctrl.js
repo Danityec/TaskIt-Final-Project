@@ -7,15 +7,15 @@ getTasks = (req, res) => {
 }
 
 getTask = (req, res) => {
+    console.log(req.params.id)
     Task.findOne({ _id: req.params.id })
-    .then(docs => res.json(docs))
+    .then(docs => {console.log(docs); res.json(docs)})
     .catch(err => console.log(err))
 }
 
 createTask = (req, res) => {
     const { body } = req
     const task = new Task();
-    //task.uniqueID = body.uniqueID
     task.templateID = body.templateID
     task.userID = body.userID
     task.share = body.share
@@ -25,14 +25,13 @@ createTask = (req, res) => {
     task.subTask = body.subTask
 
     task.save()
-        .then(() => res.json({id:`${task.id}`}))
+        .then(() => res.json({_id:`${task.id}`}))
         .catch(err => console.log(err))
 }
 
 updateTask = (req, res) => { 
     const { body } = req
     const task = {};
-    //task.uniqueID = body.uniqueID
     task.templateID = body.templateID
     task.userID = body.userID
     task.share = body.share
