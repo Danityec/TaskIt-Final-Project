@@ -26,7 +26,7 @@ function onSignIn(googleUser) {
     //         window.location.replace("dashboard.html");
     //     }
     // });
-    window.location.replace("dashboard.html");
+    location.replace("dashboard.html");
     getAllUserTasks()
 }
 
@@ -63,13 +63,42 @@ function getAllUserTasks() {
 function displayTasks(tasks) {
     $("#dynamic-task-list").empty();
     tasks.forEach(task => {
-        $('#dynamic-task-list').append(
-            '<tr><th>' + task.name + '</th>' +
-            '<td>' + task.category + '</td>' +
-            '<td><span class="status text-success">&bull;</span>' + task.status + '</td>' +
-            '<td><a href="task.html" class="view" title="View Details" data-toggle="tooltip"><i class="material-icons">&#xE5C8;</i></a></td></tr>'
-        );
+        if (task.status == true) {
+            $('#dynamic-task-list').append(
+                '<tr><th>' + task.name + '</th>' +
+                '<td>' + task.category + '</td>' +
+                '<td class="status-td"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked></td>' +
+                "<td><button type='button' class='view' title='View Details' data-toggle='tooltip' onclick='getSingleTask(\"" + task._id + "\")' >" +
+                '<i class="material-icons">&#xE5C8;</i></button></td>'
+                );
+        }
+        else {
+            $('#dynamic-task-list').append(
+                '<tr><th>' + task.name + '</th>' +
+                '<td>' + task.category + '</td>' +
+                '<td class="status-td"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>' +
+                "<td><button type='button' class='view' title='View Details' data-toggle='tooltip' onclick='getSingleTask(\"" + task._id + "\")' >" +
+                '<i class="material-icons">&#xE5C8;</i></button></td>'
+            );
+        }
     });
+}
+
+function getSingleTask(id) {
+    console.log(id)
+    $.ajax({
+        url: `http://127.0.0.1:3000/api/tasks/${id}`,
+        type: 'GET',
+        success: function (task) {
+            location.replace("task.html");
+            console.log(task);
+            displaySingleTasks(task);
+        }
+    });
+}
+
+function displaySingleTasks(task) {
+    console.log("displaySingleTasks")
 }
 
 
