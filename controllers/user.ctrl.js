@@ -7,7 +7,7 @@ getUsers = (req, res) => {
 }
 
 getUser = (req, res) => {
-    User.find({uniqueID: req.params.id })
+    User.findOne({_id: req.params.id })
     .then(docs => res.json(docs))
     .catch(err => console.log(err))
 }
@@ -21,7 +21,7 @@ createUser = (req, res) => {
     user.admin = body.admin
 
     user.save()
-        .then(() => res.json({uniqueID: `${user.uniqueID}`}))
+        .then(() => res.json({_id: `${user.id}`}))
         .catch(err => console.log(err))
 }
 
@@ -33,16 +33,16 @@ updateUser = (req, res) => {
     user.email = body.email
     user.admin = body.admin
 
-    const query = {uniqueID: req.params.uniqueID}
+    const query = {_id: req.params.id}
 
     User.updateOne(query, user)
-        .then(() => res.json({uniqueID:`${req.params.uniqueID}`}))
+        .then(() => res.json({_id:`${req.params.id}`}))
         .catch(err => console.log(err))
 }
 
 deleteUser = (req, res) => {     
-    User.deleteOne({uniqueID: req.params.uniqueID})
-        .then(() => res.json({uniqueID:`${req.params.uniqueID}`}))
+    User.deleteOne({_id: req.params.id})
+        .then(() => res.json({_id:`${req.params.id}`}))
         .catch(err => console.log(err))
 }
 
