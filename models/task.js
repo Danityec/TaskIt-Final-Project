@@ -8,7 +8,6 @@ const subTaskSchema = new Schema({
 });
 
 const taskSchema = new Schema({
-    //uniqueID: { type: Number },
     templateID: {type: String},
     userID: {type: String},
     share: {type: Array},

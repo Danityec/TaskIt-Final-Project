@@ -1,3 +1,4 @@
+const { deleteOne, remove, countDocuments, update } = require('../models/task');
 const Task = require('../models/task');
 
 
@@ -9,9 +10,16 @@ getSubTasks = (req, res) => {
 }
 
 getSubTask = (req, res) => {
-    Task.findOne({subtaskID: req.params.subtask.id.subtaskID})
+    Task.findOne({ _id: req.params.task })
     .then(docs => {
-        console.log(docs); res.json(docs)
+
+        subTaskArray = docs["subTask"]
+        subTaskArray.forEach(subtask => {
+            if (subtask["subtaskID"] == req.params.id)
+                res.json(subtask) 
+        });
+        res.json({})
+
     })
     .catch(err => console.log(err))
 }
@@ -32,29 +40,80 @@ createSubTask = (req, res) => {
         .catch(err => console.log(err))
 }
 
-updateSubTask = (req, res) => { 
-    const { body } = req
-    const subtask = {};
-    task.templateID = body.templateID
-    task.userID = body.userID
-    task.share = body.share
-    task.name = body.name
-    task.category = body.category
-    task.status = body.status
-    task.subTask = body.subTask
+async function updateSubTask(req, res){ 
+
+    const subtask = await Task.findOne({ _id:  req.params.task  })
+    const subTask = subtask.subTask
+    console.log(subTask)
+    console.log(Array.isArray(subTask)) // true
+     const { body } = req
     
-    const query = {_id: req.params.id}
+    subtask.subTask.push({
+        "name": body.name,
+        "status": body.status
+    })
 
-    Task.updateOne(query, subtask)
-        .then(() => res.json({id:`${req.params.id}`}))
-        .catch(err => console.log(err))
+
+    // Task.findOne({ _id: req.params.task })
+    //     .then(docs => {
+    //         const { body } = req
+    //         const subtask = {};
+    //         subtask.name = body.name
+    //         subtask.status= body.status
+    //         console.log("subtask : ",subtask)
+
+    //         let count, saved = 0;
+    //         subTaskArray = docs["subTask"]
+    //         console.log("subTaskArray : ",subTaskArray)
+
+    //         subTaskArray.forEach(element => {
+    //             console.log("element : ",element)
+    //             if (element["subtaskID"] == req.params.id)
+    //                 {
+    //                     count+=1
+    //                     //res.json(element)   
+    //                 }
+    //         });
+    //         subTaskArray.set('name', () =>subtask.name )
+
+    //         //subTaskArray.status =subtask.status
+    //         res.json({})
+    //     })
+    //     .catch(err => console.log(err))
 }
 
-deleteSubTask = (req, res) => {     
-    Task.deleteOne({_id: req.params.id})
-        .then(() => res.json({id:`${req.params.id}`}))
-        .catch(err => console.log(err))
+
+
+async function deleteSubTask(req, res){     
+    Task.findOne({ _id: req.params.task })
+    .then(docs => {
+        subTaskArray = docs["subTask"]
+        let count, saved = 0;
+        subTaskArray.forEach(subtask => {
+            count+=1
+            if (subtask["subtaskID"] == req.params.id)
+                saved = count   
+        });
+        subTaskArray.splice(saved,1)
+        //var x = await updatetoDeleteSubtask(subTaskArray, req.params.task)
+        console.log("place_one : ")
+        res.json({})
+       
+    })
+    .catch(err => console.log(err))
 }
+
+updatetoDeleteSubtask = (subTaskArray, task_id) => {
+    console.log("place_two : ")
+    return new Promise(resolve => {
+
+    console.log("after fine one befor update one subTaskArray : ",subTaskArray)
+    Task.updateOne({ _id: task_id}, { $set: {subTask:  subTaskArray} })
+    .then(docs => {console.log("place_3 : "); resolve(true)})
+    .catch(err => console.log(err))})
+
+}
+
 
 module.exports = { 
     getSubTasks, 
