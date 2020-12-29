@@ -2,7 +2,10 @@ const Task = require('../models/task');
 
 getTasks = (req, res) => {
     Task.find({})
-        .then(docs => res.json(docs))
+        .then(docs => {
+
+            res.json(docs)
+        })
         .catch(err => console.log(err))
 }
 
@@ -21,16 +24,42 @@ createTask = (req, res) => {
         task.templateID = body.templateID
     else
         task.templateID = null
-    task.userID = body.userID
-    task.share = body.share
-    task.name = body.name
-    task.category = body.category
-    task.status = body.status
+
+    if (body.userID != '')
+        task.userID = body.userID
+    else
+        task.userID = null
+
+    if (body.share != '')
+        task.share = body.share
+    else
+        task.share = null
+
+    if (body.name != '')
+        task.name = body.name
+    else
+        task.name = null  
+
+    if (body.category != '')
+        task.category = body.category
+    else
+        task.category = null 
+
+    if (body.status != '')
+        task.status = body.status
+    else
+        task.status = null
+
     if (body.subTask != '')
         task.subTask = body.subTask
     else
         task.subTask = null
 
+    //task.userID = body.userID
+    //task.share = body.share
+    //task.name = body.name
+    //task.category = body.category
+    //task.status = body.status
     console.log(task)
 
     task.save()
@@ -40,19 +69,87 @@ createTask = (req, res) => {
 
 updateTask = (req, res) => {
     const { body } = req
-    const task = {};
-    task.templateID = body.templateID
-    task.userID = body.userID
-    task.share = body.share
-    task.name = body.name
-    task.category = body.category
-    task.status = body.status
-    task.subTask = body.subTask
+    const task = new Task();
+    console.log(task)
 
-    const query = { _id: req.params.id }
+    // for(let i in task)
+    // {
+    //     console.log(task)
+    //     if(task[i]["_id"] == req.params.id)
+    //     {
+    //         if (task[i]["templateID"] != req.body.templateID)
+    //             console.log(req.body.templateID)
+    //             task[i]["templateID"] = req.body.templateID
+
+    //         if (task[i]["userID"] != req.body.userID)
+    //             task[i]["userID"] != req.body.userID
+
+    //         if (task[i]["share"] != req.body.share)
+    //             task[i]["share"] = req.body.share
+
+    //         if (task[i]["name"] != req.body.name)
+    //             task[i]["name"] = req.body.name
+
+    //         if (task[i]["category"] != req.body.category)
+    //             task[i]["category"] = req.body.category
+
+    //         if (task[i]["status"] != req.body.status)
+    //             task[i]["status"] = req.body.status
+
+    //         if (task[i]["subTask"] != req.body.subTask)
+    //             task[i]["subTask"] = req.body.subTask
+    //     }
+
+    // }
+
+    if (body.templateID != '')
+        task.templateID = body.templateID
+    else
+        task.templateID
+
+    if (body.userID != '')
+        task.userID = body.userID
+    else
+        task.userID 
+
+    if (body.share != '')
+        task.share = body.share
+    else
+        task.share
+
+    if (body.name != '')
+        task.name = body.name
+    else
+        task.name 
+
+    if (body.category != '')
+        task.category = body.category
+    else
+        task.category
+
+    if (body.status != '')
+        task.status = body.status
+    else
+        task.status 
+
+    if (body.subTask != '')
+        task.subTask = body.subTask
+    else
+        task.subTask 
+
+    // const task = {}
+    // task.templateID = body.templateID
+    // task.userID = body.userID
+    // task.share = body.share
+    // task.name = body.name
+    // task.category = body.category
+    // task.status = body.status
+    // task.subTask = body.subTask
+
+    const query = { id: req.params.id }
 
     Task.updateOne(query, task)
-        .then(() => res.json({ id: `${req.params.id}` }))
+        .then(() => res.json({id: `${req.params.id}` }))
         .catch(err => console.log(err))
 }
 
