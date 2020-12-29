@@ -18,11 +18,14 @@
 
 <body>
     <div class="container-xl">
-
+        <div class="above-table">
+            <div></div>
+            <a class="sign-out" href="index.html" onclick="signOut();">Sign out</a>
+        </div>
         <div class="table-responsive table-wrapper">
             <div class="table-title">
                 <h2>Keren's <b>Tasks</b></h2>
-                <a href="index.html" onclick="signOut();">Sign out</a>
+                <button type="button" onclick="window.location.href='new_task.html'" class="btn btn-success">create new task</button>
             </div>
             <table class="table table-striped table-hover">
                 <thead>
