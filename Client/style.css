@@ -141,3 +141,25 @@ button.delete {
 .task-card button i {
     font-size: 28px;
 }
+.sign-out {
+	padding-top: 20px;
+	text-decoration: none;
+	color: #757a85;
+}
+.sign-out:hover {
+	text-decoration: none;
+	color: #1a1b1f;
+}
+.above-table {
+	display: flex;
+	justify-content: space-between;
+}
+.templates .card {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	height: 100%;
+}
+.templates .card .card-header {
+	align-items: center;
+	text-align: center;
+}

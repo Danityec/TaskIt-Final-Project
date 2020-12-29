@@ -1,4 +1,5 @@
-var id_token = null
+
+var marge_user_id = 123
 
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
@@ -12,23 +13,23 @@ $(document).ready(function () {
     getAllUserTasks()
 });
 
-function onSignIn(googleUser) {
-    id_token = googleUser.getAuthResponse().id_token;
-    console.log("onSignIn")
-    console.log(id_token)
-    str = id_token
-    // $.ajax({
-    //     url: `http://127.0.0.1:3000/api/login`,
-    //     type: 'POST',
-    //     data: str,
-    //     success: function (user_id) {
-    //         console.log(user_id)
-    //         window.location.replace("dashboard.html");
-    //     }
-    // });
-    location.replace("dashboard.html");
-    getAllUserTasks()
-}
+// function onSignIn(googleUser) {
+//     id_token = googleUser.getAuthResponse().id_token;
+//     console.log("onSignIn")
+//     console.log(id_token)
+//     str = id_token
+//     // $.ajax({
+//     //     url: `http://127.0.0.1:3000/api/login`,
+//     //     type: 'POST',
+//     //     data: str,
+//     //     success: function (user_id) {
+//     //         console.log(user_id)
+//     //         window.location.replace("dashboard.html");
+//     //     }
+//     // });
+//     location.replace("dashboard.html");
+//     getAllUserTasks()
+// }
 
 function signOut() {
     var auth2 = gapi.auth2.getAuthInstance();
@@ -68,48 +69,23 @@ function displayTasks(tasks) {
                 '<tr><th>' + task.name + '</th>' +
                 '<td>' + task.category + '</td>' +
                 '<td class="status-td"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked></td>' +
-                "<td><button type='button' class='view' title='View Details' data-toggle='tooltip' onclick='getSingleTask(\"" + task._id + "\")' >" +
+                "<td><button type='button' class='view' title='View Details' data-toggle='tooltip' onclick='saveTaskId(\"" + task._id + "\")' >" +
                 '<i class="material-icons">&#xE5C8;</i></button></td>'
-                );
+            );
         }
         else {
             $('#dynamic-task-list').append(
                 '<tr><th>' + task.name + '</th>' +
                 '<td>' + task.category + '</td>' +
                 '<td class="status-td"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>' +
-                "<td><button type='button' class='view' title='View Details' data-toggle='tooltip' onclick='getSingleTask(\"" + task._id + "\")' >" +
+                "<td><button type='button' class='view' title='View Details' data-toggle='tooltip' onclick='saveTaskId(\"" + task._id + "\")' >" +
                 '<i class="material-icons">&#xE5C8;</i></button></td>'
             );
         }
     });
 }
 
-function getSingleTask(id) {
-    console.log(id)
-    $.ajax({
-        url: `http://127.0.0.1:3000/api/tasks/${id}`,
-        type: 'GET',
-        success: function (task) {
-            location.replace("task.html");
-            console.log(task);
-            displaySingleTasks(task);
-        }
-    });
+function saveTaskId(task_id) {
+    localStorage.setItem('task_id', task_id);
+    location.replace("task.html");
 }
-
-function displaySingleTasks(task) {
-    console.log("displaySingleTasks")
-}
-
-
-function setUser(info) {
-    $.ajax({
-        url: ``,
-        type: 'POST',
-        data: info,
-        success: function (rest) {
-            window.location.replace("//TODO: add here url");
-        }
-    });
-}
-

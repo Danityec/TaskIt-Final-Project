@@ -18,17 +18,22 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="./style.css">
-    <script src="./functions.js"></script>
+    <script src="./task.js"></script>
 </head>
 
-<body>
+<body id="task-body">
     <div class="container-xl">
+        <div class="above-table">
+            <div></div>
+            <a class="sign-out" href="index.html" onclick="signOut();">Sign out</a>
+        </div>
         <div class="table-responsive table-wrapper">
             <div class="table-title">
                 <div class="item-title">
                     <a href="dashboard.html"><i class="material-icons go-back">arrow_backwards</i></a>
                     <h2>Task <b>Name</b></h2>
                 </div>
+                <button type="button" class="btn btn-success">create new subtask</button>
             </div>
             <div><br></div>
             <div class="border border-3 rounded">
@@ -37,10 +42,14 @@
                         <div class="row">
                             <div class="row col-11">
                                 <div class="col-3">
-                                    <h3>Task Name</h3>
+                                    <div id="dynamic-task-name">
+                                        <!-- <h3>Task Name</h3> -->
+                                    </div>
                                 </div>
                                 <div class="col">
-                                    <h4>Task Category</h4>
+                                    <div id="dynamic-task-category">
+                                        <!-- <h4>Task Category</h4> -->
+                                    </div>
                                 </div>
                             </div>
                             <div class="col">
@@ -56,10 +65,10 @@
                     <br>
                     <div>
                         <h5>shared with:</h5>
-                        <div class="row justify-content-start">
-                            <div class="col-2">Keren Halpert</div>
+                        <div class="row justify-content-start" id="dynamic-share-list">
+                            <!-- <div class="col-2">Keren Halpert</div>
                             <div class="col-2">Danit Yechexkel</div>
-                            <div class="col-2">Dekel Menashe</div>
+                            <div class="col-2">Dekel Menashe</div> -->
                         </div>
                     </div>
                     <br>
@@ -67,8 +76,8 @@
                         <br>
                         <h5>subtasks</h5>
                         <table class="table table-striped table-hover item-table">
-                            <tbody id="">
-                                <tr class="row">
+                            <tbody id="dynamic-subtask-list">
+                                <!-- <tr class="row">
                                     <td class="col">
                                         NAME
                                     </td>
@@ -81,35 +90,7 @@
                                         <button class="delete" type='button' data-toggle='tooltip'><i
                                                 class="material-icons">&#xE872;</i></button>
                                     </td>
-                                </tr>
-                                <tr class="row">
-                                    <td class="col">
-                                        NAME
-                                    </td>
-                                    <td class="col">
-                                        STATUS
-                                    </td>
-                                    <td class="col">
-                                        <button class="edit" type='button' data-toggle='tooltip'><i
-                                                class="material-icons">&#xE254;</i></button>
-                                        <button class="delete" type='button' data-toggle='tooltip'><i
-                                                class="material-icons">&#xE872;</i></button>
-                                    </td>
-                                </tr>
-                                <tr class="row">
-                                    <td class="col">
-                                        NAME
-                                    </td>
-                                    <td class="col">
-                                        STATUS
-                                    </td>
-                                    <td class="col">
-                                        <button class="edit" type='button' data-toggle='tooltip'><i
-                                                class="material-icons">&#xE254;</i></button>
-                                        <button class="delete" type='button' data-toggle='tooltip'><i
-                                                class="material-icons">&#xE872;</i></button>
-                                    </td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                     </div>
