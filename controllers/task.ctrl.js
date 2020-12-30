@@ -17,7 +17,6 @@ getTask = (req, res) => {
 
 createTask = (req, res) => {
     const { body } = req
-    console.log(body)
 
     const task = new Task();
     if (body.templateID != '')
@@ -55,98 +54,47 @@ createTask = (req, res) => {
     else
         task.subTask = null
 
-    //task.userID = body.userID
-    //task.share = body.share
-    //task.name = body.name
-    //task.category = body.category
-    //task.status = body.status
-    console.log(task)
-
     task.save()
         .then(() => res.json({ _id: `${task.id}` }))
         .catch(err => console.log(err))
 }
+createTaskfromTemplate = (req, res) => {
+    
+}
 
 updateTask = (req, res) => {
     const { body } = req
-    const task = new Task();
-    console.log(task)
+    const task = {};
 
-    // for(let i in task)
-    // {
-    //     console.log(task)
-    //     if(task[i]["_id"] == req.params.id)
-    //     {
-    //         if (task[i]["templateID"] != req.body.templateID)
-    //             console.log(req.body.templateID)
-    //             task[i]["templateID"] = req.body.templateID
 
-    //         if (task[i]["userID"] != req.body.userID)
-    //             task[i]["userID"] != req.body.userID
-
-    //         if (task[i]["share"] != req.body.share)
-    //             task[i]["share"] = req.body.share
-
-    //         if (task[i]["name"] != req.body.name)
-    //             task[i]["name"] = req.body.name
-
-    //         if (task[i]["category"] != req.body.category)
-    //             task[i]["category"] = req.body.category
-
-    //         if (task[i]["status"] != req.body.status)
-    //             task[i]["status"] = req.body.status
-
-    //         if (task[i]["subTask"] != req.body.subTask)
-    //             task[i]["subTask"] = req.body.subTask
-    //     }
-
-    // }
-
-    if (body.templateID != '')
+    if(body.templateID != '')
         task.templateID = body.templateID
-    else
-        task.templateID
 
-    if (body.userID != '')
+
+    if(body.userID != '')
         task.userID = body.userID
-    else
-        task.userID 
+    
 
-    if (body.share != '')
+    if(body.share != '')
         task.share = body.share
-    else
-        task.share
-
-    if (body.name != '')
+        
+    if(body.name != ''){ 
         task.name = body.name
-    else
-        task.name 
-
-    if (body.category != '')
+        
+    if(body.category != '')
         task.category = body.category
-    else
-        task.category
-
-    if (body.status != '')
+        
+    if(body.status != '')
         task.status = body.status
-    else
-        task.status 
 
-    if (body.subTask != '')
+
+    if(body.subTask != '')
         task.subTask = body.subTask
-    else
-        task.subTask 
+        console.log("task.subTask", task.subTask)
 
-    // const task = {}
-    // task.templateID = body.templateID
-    // task.userID = body.userID
-    // task.share = body.share
-    // task.name = body.name
-    // task.category = body.category
-    // task.status = body.status
-    // task.subTask = body.subTask
+    }
 
-    const query = { id: req.params.id }
+    const query = { _id: req.params.id }
 
     Task.updateOne(query, task)
         .then(() => res.json({id: `${req.params.id}` }))
@@ -163,6 +111,7 @@ module.exports = {
     getTasks,
     getTask,
     createTask,
+    createTaskfromTemplate,
     updateTask,
     deleteTask
 };
