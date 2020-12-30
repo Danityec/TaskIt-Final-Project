@@ -44,7 +44,7 @@ getAllTemplates = (req, res) => {
         if (body.share != '')
             task.share = body.share
         else
-            task.share = null
+            task.share = []
 
         if (body.name != '')
             task.name = body.name
@@ -64,7 +64,7 @@ getAllTemplates = (req, res) => {
         if (body.subTask != '')
             task.subTask = body.subTask
         else
-            task.subTask = null
+            task.subTask = []
 
         task.save()
             .then(() => res.json({ _id: `${task.id}` }))
@@ -105,7 +105,7 @@ getAllTemplates = (req, res) => {
             task.userID = body.userID
 
 
-        if (body.share != '' && body.share != null)
+        if (body.share != '' && body.share != null && body.share != [])
             task.share = body.share
 
         if (body.name != '' && body.name != null) 
@@ -118,7 +118,7 @@ getAllTemplates = (req, res) => {
             task.status = body.status
 
 
-        if (body.subTask != '' && body.subTask != null)
+        if (body.subTask != '' && body.subTask != null &&body.subTask != [])
             task.subTask = body.subTask
 
     
