@@ -17,8 +17,11 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="./style.css">
-    <script src="./task.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/task.js"></script>
 </head>
 
 <body id="task-body">
@@ -33,7 +36,8 @@
                     <a href="dashboard.html"><i class="material-icons go-back">arrow_backwards</i></a>
                     <h2>Task <b>Name</b></h2>
                 </div>
-                <button type="button" class="btn btn-success">create new subtask</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                    data-bs-target="#create-subtask">create new subtask</button>
             </div>
             <div><br></div>
             <div class="border border-3 rounded">
@@ -54,16 +58,17 @@
                             </div>
                             <div class="col">
                                 <div class="container d-flex">
-                                    <button class="edit" type='button' data-toggle='tooltip'><i
+                                    <button class="edit" type='button' data-toggle='tooltip' data-bs-toggle="modal"
+                                        onclick="userAutocomplete();" data-bs-target="#edit-task"><i
                                             class="material-icons">&#xE254;</i></button>
-                                    <button class="delete" type='button' data-toggle='tooltip'><i
-                                            class="material-icons">&#xE872;</i></button>
+                                    <button class="delete" type='button' data-toggle='tooltip' data-bs-toggle="modal"
+                                        data-bs-target="#delete-task"><i class="material-icons">&#xE872;</i></button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <br>
-                    <div>
+                    <div id="share-section">
                         <h5>shared with:</h5>
                         <div class="row justify-content-start" id="dynamic-share-list">
                             <!-- <div class="col-2">Keren Halpert</div>
@@ -72,12 +77,13 @@
                         </div>
                     </div>
                     <br>
-                    <div class="border rounded container">
-                        <br>
-                        <h5>subtasks</h5>
-                        <table class="table table-striped table-hover item-table">
-                            <tbody id="dynamic-subtask-list">
-                                <!-- <tr class="row">
+                    <div id="subtask-card">
+                        <div class="border rounded container">
+                            <br>
+                            <h5>subtasks</h5>
+                            <table class="table table-striped table-hover item-table">
+                                <tbody id="dynamic-subtask-list">
+                                    <!-- <tr class="row">
                                     <td class="col">
                                         NAME
                                     </td>
@@ -91,13 +97,149 @@
                                                 class="material-icons">&#xE872;</i></button>
                                     </td>
                                 </tr> -->
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Create SUB Modal -->
+    <div class="modal fade" id="create-subtask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create new subtask</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="form-group" id="new-subtask-form">
+                            <input type="text" class="form-control" id="task_name_create" name="subtask_name"
+                                placeholder="Subtask Name" required="required">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" id="submit_create_subtask"
+                                class="btn btn-success btn-lg btn-block">Create</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Edit Modal -->
+    <div class="modal fade" id="edit-task" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="task_name_edit" name="task_name"
+                                placeholder="New task name">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="task_category_edit" name="task_category"
+                                placeholder="New task category">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="task_share" name="task_share"
+                                placeholder="Add a user to share the task with">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" id="submit_edit_task"
+                                class="btn btn-warning btn-lg btn-block">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="delete-task" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="form-group" id="new-subtask-form">
+                            <h4>Are you sure you want to delete this task?</h4>
+                            <h5>it will delete all subtasks too!</h5>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-success btn-lg btn-block" data-bs-dismiss="modal">No!
+                                Save my task</button>
+                            <button type="submit" id="submit_delete_task" class="btn btn-danger btn-lg btn-block">Yes,
+                                Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Edit SUB Modal -->
+    <div class="modal fade" id="edit-subtask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edit subtask</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="form-group" id="new-subtask-form">
+                            <input type="text" class="form-control" id="subtask_name_edit" name="task_name"
+                                placeholder="Subtask Name">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" id="submit_edit_subtask"
+                                class="btn btn-warning btn-lg btn-block">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete SUB Modal -->
+    <div class="modal fade" id="delete-subtask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Delete subtask</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="form-group" id="new-subtask-form">
+                            <h4>Are you sure you want to delete this subtask?</h4>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-success btn-lg btn-block" data-bs-dismiss="modal">No!
+                                Save my subtask</button>
+                            <button type="submit" id="submit_delete_task" class="btn btn-danger btn-lg btn-block">Yes,
+                                Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </body>
 
 </html>

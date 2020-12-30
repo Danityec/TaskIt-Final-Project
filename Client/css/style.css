@@ -93,6 +93,9 @@ table.table td i:hover {
 	vertical-align: middle;
 	line-height: 10px;
 }
+.status-td {
+	height: 55.33px;
+}
 .text-success {
 	color: #10c469;
 }
@@ -112,13 +115,13 @@ table.table td i:hover {
 #dynamic-task-list .status-td {
 	display: flex;
 }
-#flexCheckDefault {
+.form-check-input {
 	margin: 0;
 	padding: 0;
 	width: 1.45rem;
 	height: 1.45rem;
 }
-#flexCheckDefault:hover {
+.form-check-input:hover {
 	cursor: pointer;
 }
 table.table td a {
@@ -162,4 +165,25 @@ button.delete {
 .templates .card .card-header {
 	align-items: center;
 	text-align: center;
+}
+/* .select-disabled p {
+	color: red;
+}
+
+select option {
+	color: green;
+} */
+
+.form-select {
+	color: #6C757D;
+}
+.form-select   option {
+	color: black;
+}
+#task_share  {
+    position: relative;
+    z-index: 10000;
+}
+.ui-autocomplete {
+     z-index: 9999 !important;
 }
