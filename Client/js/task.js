@@ -125,8 +125,6 @@ function updateSubaskStatus(subtask_id, checked) {
 }
 
 
-
-
 function listeners() {
     $("#submit_edit_task").click(() => {
         task_id = localStorage.getItem('task_id')
@@ -147,22 +145,23 @@ function listeners() {
                 type: 'GET',
                 success: function (user) {
                     share_list.push(user._id)
+                    updated_task = {
+                        "name": new_name,
+                        "category": new_category,
+                        "share": share_list
+                    }
+                    $.ajax({
+                        url: `http://127.0.0.1:3000/api/tasks/${task_id}`,
+                        type: 'PUT',
+                        data: updated_task,
+                        success: function () {
+                            location.replace('task.html');
+                        }
+                    });
                 }
             });
         }
-        updated_task = {
-            "name": new_name,
-            "category": new_category,
-            "share": share_list
-        }
-        $.ajax({
-            url: `http://127.0.0.1:3000/api/tasks/${task_id}`,
-            type: 'PUT',
-            data: updated_task,
-            success: function () {
-                location.replace('task.html');
-            }
-        });
+       
 
     });
 

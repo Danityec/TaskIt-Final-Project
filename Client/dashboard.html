@@ -8,8 +8,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
         crossorigin="anonymous"></script>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -30,9 +28,14 @@
         <div class="table-responsive table-wrapper">
             <div class="table-title">
                 <div id="user-name">
-                    <!-- <h2>Keren's <b>Tasks</b></h2> -->
+
                 </div>
-                <button type="button" onclick="window.location.href='new_task.html'" class="btn btn-success">create new task</button>
+                <div>
+                    <button type="button" onclick="window.location.href='new_task.html'" class="btn btn-success">create
+                        new task</button>
+                    <button type="button" onclick="window.location.href='chat.html'" class="btn btn-primary">go to
+                        chat</button>
+                </div>
             </div>
             <table class="table table-striped table-hover">
                 <thead>
@@ -44,11 +47,7 @@
                     </tr>
                 </thead>
                 <tbody id="dynamic-task-list">
-                    <!-- <tr><th>name</th>
-                    <td>category</td>
-                    <td class="status-td"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked></td>
-                    <td><button type="button" class="view" title="View Details" data-toggle="tooltip" onclick="getSingleTask(7676);"><i class="material-icons">&#xE5C8;</i></button></td>
-               -->
+                   
                 </tbody>
             </table>
         </div>

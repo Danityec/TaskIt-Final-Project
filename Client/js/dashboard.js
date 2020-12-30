@@ -1,5 +1,5 @@
 
-var marge_user_id = '5fea10ee690ca7935c117923'
+var marge_user_id = '5fecb592690ca7935ccfd762'
 
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
@@ -20,8 +20,7 @@ function getUserName() {
         type: 'GET',
         success: function (user) {
             $("#user-name").empty();
-            // $("#user-name").append('<h2>' + user['firstName'] + '\'s <b>Tasks</b></h2>');  
-            $("#user-name").append('<h2>' + 'Marge' + '\'s <b>Tasks</b></h2>');
+            $("#user-name").append('<h2>' + user['firstName'] + '\'s <b>Tasks</b></h2>');  
         }
     });
 }
