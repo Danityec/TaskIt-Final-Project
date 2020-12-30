@@ -7,7 +7,7 @@ const SubTaskController = require('../controllers/subtask.ctrl');
 router.get('/', taskController.getTasks);         
 router.get('/:id', taskController.getTask); 
 router.get('/users/:userID', taskController.getAllUserTasks);  
-router.get('/templates', taskController.getAllTemplates);      
+router.get('/task/templates', taskController.getAllTemplates);      
 router.post('/', taskController.createTask);  
 //router.post('/:templateID', taskController.createTaskfromTemplate);         
 router.put('/:id', taskController.updateTask);     

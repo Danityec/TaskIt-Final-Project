@@ -1,29 +1,30 @@
 const Task = require('../models/task');
 
 getTasks = (req, res) => {
-    Task.find({})
+    Task.find({}).sort({_id: -1})
+
         .then(docs => {res.json(docs)})
         .catch(err => console.log(err))
 }
 
 getAllUserTasks = (req, res) => {    
-    Task.find({userID: req.params.userID})
+    Task.find({userID: req.params.userID}).sort({_id: -1})
         .then(docs => { console.log(docs); res.json(docs) })
         .catch(err => console.log(err))
 }
 
 getAllTemplates = (req, res) => {   
-    Task.find({})
+    Task.find({status: null}).sort({_id: -1})
     .then(docs => {res.json(docs)})
     .catch(err => console.log(err))
-}
+},
 
 
 getTask = (req, res) => {
-    Task.findOne({ _id: req.params.id })
-        .then(docs => { console.log(docs); res.json(docs) })
+    Task.findOne({_id: req.params.id})
+        .then(docs => { res.json(docs)})
         .catch(err => console.log(err))
-}
+},
 
 
 createTask = (req, res) => {
@@ -68,7 +69,7 @@ createTask = (req, res) => {
     task.save()
         .then(() => res.json({ _id: `${task.id}` }))
         .catch(err => console.log(err))
-}
+},
 
 updateTask = (req, res) => {
     const { body } = req
@@ -107,13 +108,13 @@ updateTask = (req, res) => {
     Task.updateOne(query, task)
         .then(() => res.json({id: `${req.params.id}` }))
         .catch(err => console.log(err))
-}
+},
 
 deleteTask = (req, res) => {
     Task.deleteOne({ _id: req.params.id })
         .then(() => res.json({ id: `${req.params.id}` }))
         .catch(err => console.log(err))
-}
+},
 
 module.exports = {
     getTasks,
@@ -124,4 +125,3 @@ module.exports = {
     updateTask,
     deleteTask
 };
-
