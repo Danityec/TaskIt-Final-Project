@@ -2,18 +2,29 @@ const Task = require('../models/task');
 
 getTasks = (req, res) => {
     Task.find({})
-        .then(docs => {
-
-            res.json(docs)
-        })
+        .then(docs => {res.json(docs)})
         .catch(err => console.log(err))
 }
+
+getAllUserTasks = (req, res) => {    
+    Task.find({userID: req.params.userID})
+        .then(docs => { console.log(docs); res.json(docs) })
+        .catch(err => console.log(err))
+}
+
+getAllTemplates = (req, res) => {   
+    Task.find({})
+    .then(docs => {res.json(docs)})
+    .catch(err => console.log(err))
+}
+
 
 getTask = (req, res) => {
     Task.findOne({ _id: req.params.id })
         .then(docs => { console.log(docs); res.json(docs) })
         .catch(err => console.log(err))
 }
+
 
 createTask = (req, res) => {
     const { body } = req
@@ -57,9 +68,6 @@ createTask = (req, res) => {
     task.save()
         .then(() => res.json({ _id: `${task.id}` }))
         .catch(err => console.log(err))
-}
-createTaskfromTemplate = (req, res) => {
-    
 }
 
 updateTask = (req, res) => {
@@ -110,8 +118,9 @@ deleteTask = (req, res) => {
 module.exports = {
     getTasks,
     getTask,
+    getAllUserTasks,
+    getAllTemplates,
     createTask,
-    createTaskfromTemplate,
     updateTask,
     deleteTask
 };
