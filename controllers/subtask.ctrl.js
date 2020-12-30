@@ -14,7 +14,7 @@ getSubTask = (req, res) => {
 
             subTaskArray = docs["subTask"]
             subTaskArray.forEach(subtask => {
-                if (subtask["subtaskID"] == req.params.id)
+                if (subtask["_id"] == req.params.id)
                     res.json(subtask)
             });
             res.json({})
