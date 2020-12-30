@@ -82,7 +82,6 @@ async function updateSubTask(req, res){
 }
 
 
-
 async function deleteSubTask(req, res){     
     Task.findOne({ _id: req.params.task })
     .then(docs => {
@@ -94,7 +93,7 @@ async function deleteSubTask(req, res){
                 saved = count   
         });
         subTaskArray.splice(saved,1)
-        //var x = await updatetoDeleteSubtask(subTaskArray, req.params.task)
+        updatetoDeleteSubtask(subTaskArray, req.params.task)
         console.log("place_one : ")
         res.json({})
        

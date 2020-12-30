@@ -9,7 +9,7 @@ router.get('/:id', taskController.getTask);
 router.get('/users/:userID', taskController.getAllUserTasks);  
 router.get('/task/templates', taskController.getAllTemplates);      
 router.post('/', taskController.createTask);  
-//router.post('/:templateID', taskController.createTaskfromTemplate);         
+router.post('/:templateID', taskController.createTaskfromTemplate);         
 router.put('/:id', taskController.updateTask);     
 router.delete('/:id', taskController.deleteTask); 
 
