@@ -33,15 +33,8 @@ createSubTask = (req, res) => {
         .catch(err => console.log(err))
 }
 
-// updateSubTask = (req, res) => {
-//     const { body } = req
-
-// }
-
-
 module.exports = {
     getSubTasks,
     getSubTask,
     createSubTask,
-    //updateSubTask
 }
