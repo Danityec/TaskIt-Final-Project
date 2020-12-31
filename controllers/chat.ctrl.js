@@ -15,7 +15,7 @@ getChats = (req, res) => {                 // get for all message by userID1/use
     }
 }
 
-getChat = (req, res) => {                   // get all message by userID1 with userID2
+getChat = (req, res) => {                   // get message by userID1 with userID2
     Chat.findOne({ _id: req.params.id })
         .then(docs => { console.log(docs); res.json(docs) })
         .catch(err => console.log(err))
