@@ -1,7 +1,11 @@
+
 const { Router } = require('express');
 const router = new Router();
+const subtaskRouter = require("./subtask.router");
+
 
 const taskController = require('../controllers/task.ctrl');
+router.use('/subtasks', subtaskRouter.router);
 
 router.get('/', taskController.getTasks);
 router.get('/:id', taskController.getTask);
