@@ -7,7 +7,7 @@ getTasks = (req, res) => {
             .catch(err => console.log(err))
     }
 
-    if (req.query.templates) {
+    else if (req.query.templates) {
         Task.find({ status: null }).sort({ _id: -1 })
             .then(docs => res.json(docs))
             .catch(err => console.log(err))
