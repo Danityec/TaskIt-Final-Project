@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const messageSchema = new Schema({
     senderID: { type: String },
-    timestamp: {type: Date},
+    timestamp: {type: String},
     message: {type: String} 
 });
 

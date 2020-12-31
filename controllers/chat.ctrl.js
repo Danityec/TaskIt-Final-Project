@@ -1,4 +1,5 @@
 const Chat = require('../models/chat');
+const moment = require('moment');
 
 getChats = (req, res) => {                 // get for all message by userID1/userID2
     if (req.query.userID) {
@@ -49,7 +50,7 @@ createMessage = (req, res) => {              // save all history messages
     const { body } = req
 
     Chat.updateOne({ _id: req.params.id }, {
-        $push:{messages: {timestamp: moment, message: body.message, senderID: body.senderID} }
+        $push:{messages: {timestamp: moment().format('L') + " - " + moment().format('LT'), senderID: body.senderID ,message: body.message} }
     })
         .then(() => res.json({ id: `${req.params.messages}` }))
         .catch(err => console.log(err))
