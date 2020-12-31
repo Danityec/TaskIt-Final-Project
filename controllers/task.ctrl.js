@@ -1,30 +1,32 @@
 const Task = require('../models/task');
 
 getTasks = (req, res) => {
-    Task.find({}).sort({ _id: -1 })
-
-        .then(docs => { res.json(docs) })
+    if (req.query.userID) {
+        Task.find({ userID: req.query.userID }).sort({ _id: -1 })
+        .then(docs => {res.json(docs) })
         .catch(err => console.log(err))
+    }
+
+    if (req.query.templates) {
+        Task.find({status: null}).sort({ _id: -1 })
+        .then(docs => {res.json(docs) })
+        .catch(err => console.log(err))
+    }
+
+    else {
+        Task.find({}).sort({ _id: -1 })
+        .then(docs => res.json(docs))
+        .catch(err => console.log(err))
+    }
+
 }
 
-getAllUserTasks = (req, res) => {
-    Task.find({ userID: req.params.userID }).sort({ _id: -1 })
-        .then(docs => { console.log(docs); res.json(docs) })
-        .catch(err => console.log(err))
-}
 
-getAllTemplates = (req, res) => {
-    Task.find({ status: null }).sort({ _id: -1 })
-        .then(docs => { res.json(docs) })
-        .catch(err => console.log(err))
+getTask = (req, res) => {              
+    Task.findOne({ _id: req.params.id })
+    .then(docs => { res.json(docs) })
+    .catch(err => console.log(err))
 },
-
-
-    getTask = (req, res) => {
-        Task.findOne({ _id: req.params.id })
-            .then(docs => { res.json(docs) })
-            .catch(err => console.log(err))
-    },
 
 
     createTask = (req, res) => {
@@ -97,7 +99,7 @@ getAllTemplates = (req, res) => {
         const { body } = req
         const task = {};
 
-        if (body.templateID != '' && body.templateID != null )
+        if (body.templateID != '' && body.templateID != null)
             task.templateID = body.templateID
 
 
@@ -108,7 +110,7 @@ getAllTemplates = (req, res) => {
         if (body.share != '' && body.share != null && body.share != [])
             task.share = body.share
 
-        if (body.name != '' && body.name != null) 
+        if (body.name != '' && body.name != null)
             task.name = body.name
 
         if (body.category != '' && body.category != null)
@@ -118,10 +120,10 @@ getAllTemplates = (req, res) => {
             task.status = body.status
 
 
-        if (body.subTask != '' && body.subTask != null &&body.subTask != [])
+        if (body.subTask != '' && body.subTask != null && body.subTask != [])
             task.subTask = body.subTask
 
-    
+
 
         const query = { _id: req.params.id }
 
@@ -139,8 +141,6 @@ getAllTemplates = (req, res) => {
     module.exports = {
         getTasks,
         getTask,
-        getAllUserTasks,
-        getAllTemplates,
         createTask,
         createTaskfromTemplate,
         updateTask,
