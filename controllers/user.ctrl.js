@@ -8,8 +8,8 @@ getUsers = (req, res) => {
     }
     else {
         User.find({})
-        .then(docs => res.json(docs))
-        .catch(err => console.log(err))
+            .then(docs => res.json(docs))
+            .catch(err => console.log(err))
     }
 }
 

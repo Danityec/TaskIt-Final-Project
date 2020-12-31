@@ -3,13 +3,13 @@ const logger = require("morgan");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const taskRouter    = require("./routers/task.router");
-const userRouter    = require("./routers/user.router");
+const taskRouter = require("./routers/task.router");
+const userRouter = require("./routers/user.router");
 const chatRouter = require("./routers/chat.router");
 
 
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -19,9 +19,9 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(logger("dev"));        
+app.use(logger("dev"));
 
-app.use('/api/tasks', taskRouter.router); 
+app.use('/api/tasks', taskRouter.router);
 app.use('/api/users', userRouter.router);
 app.use('/api/chats', chatRouter.router);
 

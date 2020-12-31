@@ -1,12 +1,12 @@
 const Chat = require('../models/chat');
 const moment = require('moment');
 
-getChats = (req, res) => {                 // get for all message by userID1/userID2
+getChats = (req, res) => {
     if (req.query.userID) {
         Chat.find({
-            $or: [{userID1: req.query.userID},{userID2: req.query.userID}]
+            $or: [{ userID1: req.query.userID }, { userID2: req.query.userID }]
         }).sort({ _id: -1 })
-            .then(docs => { console.log(docs); res.json(docs) })
+            .then(docs => res.json(docs))
             .catch(err => console.log(err))
     }
     else {
@@ -16,13 +16,13 @@ getChats = (req, res) => {                 // get for all message by userID1/use
     }
 }
 
-getChat = (req, res) => {                   // get message by userID1 with userID2
+getChat = (req, res) => {
     Chat.findOne({ _id: req.params.id })
-        .then(docs => { console.log(docs); res.json(docs) })
+        .then(docs => res.json(docs))
         .catch(err => console.log(err))
 }
 
-createChat = (req, res) => {                 
+createChat = (req, res) => {
     const { body } = req
     const chat = new Chat();
 
@@ -40,8 +40,8 @@ createChat = (req, res) => {
         chat.message = body.message
     else
         chat.message = []
-   
-        chat.save()
+
+    chat.save()
         .then(() => res.json({ id: `${chat.id}` }))
         .catch(err => console.log(err))
 }
@@ -50,7 +50,7 @@ createMessage = (req, res) => {              // save all history messages
     const { body } = req
 
     Chat.updateOne({ _id: req.params.id }, {
-        $push:{messages: {timestamp: moment().format('L') + " - " + moment().format('LT'), senderID: body.senderID ,message: body.message} }
+        $push: { messages: { timestamp: moment().format('L') + " - " + moment().format('LT'), senderID: body.senderID, message: body.message } }
     })
         .then(() => res.json({ id: `${req.params.messages}` }))
         .catch(err => console.log(err))

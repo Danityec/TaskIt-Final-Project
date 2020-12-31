@@ -27,21 +27,21 @@ createSubTask = (req, res) => {
     const { body } = req
 
     Task.updateOne({ _id: req.params.task }, {
-        $push:{subTask: {name: body.name, status: false} }
+        $push: { subTask: { name: body.name, status: false } }
     })
         .then(() => res.json({ id: `${req.params.task}` }))
         .catch(err => console.log(err))
 }
 
-updateSubTask= (req, res) => {
-    const { body } = req
-    
-}
+// updateSubTask = (req, res) => {
+//     const { body } = req
+
+// }
 
 
 module.exports = {
     getSubTasks,
     getSubTask,
     createSubTask,
-    updateSubTask
+    //updateSubTask
 }
