@@ -29,7 +29,7 @@ createChat = (req, res) => {
     if (body.userID1 != '')
         chat.userID1 = body.userID1
     else
-        task.templateID = null
+        task.userID1 = null
 
     if (body.userID2 != '')
         chat.userID2 = body.userID2
