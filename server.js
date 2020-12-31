@@ -1,5 +1,5 @@
 const express = require("express");
-const logger = require("morgan");
+// const logger = require("morgan");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -20,7 +20,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(logger("dev"));
+// app.use(logger("dev"));
 
 app.use('/api/tasks', taskRouter.router);
 app.use('/api/subtasks', subtaskRouter.router);
