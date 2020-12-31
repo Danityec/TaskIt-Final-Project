@@ -21,23 +21,38 @@ getChat = (req, res) => {                   // get message by userID1 with userI
         .catch(err => console.log(err))
 }
 
-createChat = (req, res) => {                 //send one message
+createChat = (req, res) => {                 
     const { body } = req
-    const message = new Chat();
-    message.senderID = body.senderID
-    message.receiverID = body.receiverID
-    message.read = body.read
-    message.timestamp = body.timestamp
-    message.title = body.title
-    message.message = body.message
+    const chat = new Chat();
 
-    message.save()
-        .then(() => res.json({ id: `${message.id}` }))
+    if (body.userID1 != '')
+        chat.userID1 = body.userID1
+    else
+        task.templateID = null
+
+    if (body.userID2 != '')
+        chat.userID2 = body.userID2
+    else
+        chat.userID2 = null
+
+    if (body.message != '')
+        chat.message = body.message
+    else
+        chat.message = []
+   
+        chat.save()
+        .then(() => res.json({ id: `${chat.id}` }))
         .catch(err => console.log(err))
 }
 
 createMessage = (req, res) => {              // save all history messages
+    const { body } = req
 
+    Chat.updateOne({ _id: req.params.id }, {
+        $push:{messages: {timestamp: moment, message: body.message, senderID: body.senderID} }
+    })
+        .then(() => res.json({ id: `${req.params.messages}` }))
+        .catch(err => console.log(err))
 }
 
 
