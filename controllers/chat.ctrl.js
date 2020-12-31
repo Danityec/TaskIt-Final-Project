@@ -1,18 +1,18 @@
-const Message = require('../models/message');
+const Message = require('../models/chat');
 
-getMessages = (req, res) => {
+getChats = (req, res) => {
     Message.find({})
     .then(docs =>  res.json(docs))
     .catch(err => console.log(err))
 }
 
-getMessage = (req, res) => {
+getChat = (req, res) => {
     Message.findOne({ _id: req.params.id })
     .then(docs => {console.log(docs); res.json(docs)})
     .catch(err => console.log(err))
 }
 
-createMessage = (req, res) => {
+createChat = (req, res) => {
     const { body } = req
     const message = new Message();
     message.senderID = body.senderID
@@ -27,9 +27,14 @@ createMessage = (req, res) => {
         .catch(err => console.log(err))
 }
 
+createMessage = (req,res) => {
+
+}
+
 
 module.exports = { 
-    getMessages, 
-    getMessage, 
-    createMessage, 
+    getChats, 
+    getChat, 
+    createChat,
+    createMessage 
 }

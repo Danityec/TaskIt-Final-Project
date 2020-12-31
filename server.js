@@ -5,8 +5,7 @@ const PORT = process.env.PORT || 3000;
 
 const taskRouter    = require("./routers/task.router");
 const userRouter    = require("./routers/user.router");
-const messageRouter = require("./routers/message.router");
-const authentication= require("./routers/authentication.router");
+const chatRouter = require("./routers/chat.router");
 
 
 app.use(express.json());
@@ -24,8 +23,7 @@ app.use(logger("dev"));
 
 app.use('/api/tasks', taskRouter.router); 
 app.use('/api/users', userRouter.router);
-app.use('/api/messages', messageRouter.router);
-app.use('/api/login', authentication.router);  
+app.use('/api/chats', chatRouter.router);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
