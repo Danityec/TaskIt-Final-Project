@@ -2,7 +2,6 @@ const { Schema, model } = require('mongoose');
 
 const messageSchema = new Schema({
     senderID: { type: String },
-    read: {type: Boolean},
     timestamp: {type: Date},
     message: {type: String} 
 });
@@ -13,6 +12,6 @@ const chatSchema = new Schema ({
     messages: [messageSchema]
 }, { collection: 'chats' });
 
-const Chst = model('Chst', chatSchema);
+const Chat = model('Chat', chatSchema);
 
-module.exports = Chst;
+module.exports = Chat;
