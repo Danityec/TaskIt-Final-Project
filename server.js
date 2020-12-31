@@ -4,6 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const taskRouter = require("./routers/task.router");
+const subtaskRouter = require("./routers/subtask.router");
 const userRouter = require("./routers/user.router");
 const chatRouter = require("./routers/chat.router");
 
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 app.use(logger("dev"));
 
 app.use('/api/tasks', taskRouter.router);
+app.use('/api/subtasks', subtaskRouter.router);
 app.use('/api/users', userRouter.router);
 app.use('/api/chats', chatRouter.router);
 
