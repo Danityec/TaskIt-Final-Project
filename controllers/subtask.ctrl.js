@@ -26,15 +26,40 @@ getSubTask = (req, res) => {
 createSubTask = (req, res) => {
     const { body } = req
 
+    if(body.name == null || body.name == "")
+        res.json(null)
+
     Task.updateOne({ _id: req.params.task }, {
-        $push: { subTask: { name: body.name, status: false } }
+        $push: { subTask: { 
+            name: body.name,
+            completed: false } }
     })
         .then(() => res.json({ id: `${req.params.task}` }))
         .catch(err => console.log(err))
+}
+
+updateSubTask = (req, res) => {
+    const { body } = req
+
+    if(body.name == null || body.name == "")
+        res.json(null)
+
+    Task.updateOne({ _id: req.params.task }, {
+        $push: { subTask: { 
+            name: body.name,
+            completed: false } }
+    })
+        .then(() => res.json({ id: `${req.params.task}` }))
+        .catch(err => console.log(err))
+}
+
+deleteSubTask = (req, res) => {
 }
 
 module.exports = {
     getSubTasks,
     getSubTask,
     createSubTask,
+    updateSubTask,
+    deleteSubTask,
 }

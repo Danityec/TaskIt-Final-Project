@@ -26,20 +26,22 @@ createChat = (req, res) => {
     const { body } = req
     const chat = new Chat();
 
-    if (body.userID1 != '')
+    if (body.userID1 != '' || body.userID1 != null)
         chat.userID1 = body.userID1
-    else
-        task.userID1 = null
 
-    if (body.userID2 != '')
+    else  res.json(null)
+
+    if (body.userID2 != '' || body.userID2 != null)
         chat.userID2 = body.userID2
-    else
-        chat.userID2 = null
 
-    if (body.message != '')
+    else res.json(null)
+        
+
+    if (body.message != '' || body.message != null)
         chat.message = body.message
-    else
-        chat.message = []
+
+    else res.json(null)
+       
 
     chat.save()
         .then(() => res.json({ id: `${chat.id}` }))
@@ -48,6 +50,12 @@ createChat = (req, res) => {
 
 createMessage = (req, res) => {              // save all history messages
     const { body } = req
+
+    if(body.senderID == null || body.senderID == "")
+    res.json(null)
+
+    if(body.message == null || body.message == "")
+    res.json(null)
 
     Chat.updateOne({ _id: req.params.id }, {
         $push: { messages: { timestamp: moment().format('L') + " - " + moment().format('LT'), senderID: body.senderID, message: body.message } }

@@ -43,25 +43,25 @@ createTask = (req, res) => {
     else
         task.userID = null
 
-    if (body.share != '')
-        task.share = body.share
+    if (body.sharedWith != '')
+        task.sharedWith = body.sharedWith
     else
-        task.share = []
+        task.sharedWith = []
 
-    if (body.name != '')
-        task.name = body.name
-    else
-        task.name = null
+    if(body.name == null || body.name == "")
+        res.json(null)
 
-    if (body.category != '')
-        task.category = body.category
-    else
-        task.category = null
+    else task.name = body.name
+    
+    if(body.category == null || body.category == "")
+        res.json(null)
 
-    if (body.status != '')
-        task.status = body.status
+    else task.category = body.category
+
+    if (body.completed != '')
+        task.completed = body.completed
     else
-        task.status = null
+        task.completed = null
 
     if (body.subTask != '')
         task.subTask = body.subTask
@@ -80,8 +80,8 @@ createTaskfromTemplate = (req, res) => {
             const task = new Task();
 
             task.userID = body.userID
-            task.status = 'false'
-            task.share = []
+            task.completed = 'false'
+            task.sharedWith = []
             task.templateID = req.params.templateID
             task.name = docs["name"]
             task.category = docs["category"]
@@ -107,17 +107,21 @@ updateTask = (req, res) => {
         task.userID = body.userID
 
 
-    if (body.share != '' && body.share != null && body.share != [])
-        task.share = body.share
+    if (body.sharedWith != '' && body.sharedWith != null && body.sharedWith != [])
+        task.sharedWith = body.sharedWith
 
     if (body.name != '' && body.name != null)
         task.name = body.name
+    
+    else res.json(null)
 
     if (body.category != '' && body.category != null)
         task.category = body.category
 
-    if (body.status != '' && body.status != null)
-        task.status = body.status
+    else res.json(null)
+    
+    if (body.completed != '' && body.completed != null)
+        task.completed = body.completed
 
 
     if (body.subTask != '' && body.subTask != null && body.subTask != [])

@@ -7,6 +7,7 @@ const taskRouter = require("./routers/task.router");
 const subtaskRouter = require("./routers/subtask.router");
 const userRouter = require("./routers/user.router");
 const chatRouter = require("./routers/chat.router");
+const reviewRouter = require("./routers/review.router");
 
 
 app.use(express.json());
@@ -26,6 +27,7 @@ app.use('/api/tasks', taskRouter.router);
 app.use('/api/subtasks', subtaskRouter.router);
 app.use('/api/users', userRouter.router);
 app.use('/api/chats', chatRouter.router);
+app.use('/api/reviews', reviewRouter.router);
 
 app.use((err, req, res, next) => {
     console.error(err.stack);

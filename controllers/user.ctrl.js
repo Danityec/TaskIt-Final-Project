@@ -22,9 +22,22 @@ getUser = (req, res) => {
 createUser = (req, res) => {
     const { body } = req
     const user = new User();
-    user.firstName = body.firstName
-    user.lastName = body.lastName
-    user.email = body.email
+
+    if(body.firstName == null || body.firstName == "")
+        res.json(null)
+
+    else user.firstName = body.firstName
+
+    if(body.lastName == null || body.firstName == "")
+        res.json(null)
+
+    else user.lastName = body.lastName
+    
+    if(body.email == null || body.firstName == "")
+        res.json(null)
+
+    else user.email = body.email
+    
     user.admin = body.admin
 
     user.save()
@@ -35,9 +48,20 @@ createUser = (req, res) => {
 updateUser = (req, res) => {
     const { body } = req
     const user = {};
-    user.firstName = body.firstName
-    user.lastName = body.lastName
-    user.email = body.email
+    if(body.firstName == null || body.firstName == "")
+        res.json(null)
+
+    else user.firstName = body.firstName
+
+    if(body.lastName == null || body.firstName == "")
+        res.json(null)
+    else user.lastName = body.lastName
+
+    if(body.email == null || body.firstName == "")
+        res.json(null)
+
+    else user.email = body.email
+    
     user.admin = body.admin
 
     const query = { _id: req.params.id }
