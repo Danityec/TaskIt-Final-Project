@@ -59,7 +59,6 @@ deleteSubTask = (req, res) => {
     
 }
 
-
 module.exports = {
     getSubTasks,
     getSubTask,

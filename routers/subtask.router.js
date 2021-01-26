@@ -9,5 +9,4 @@ router.post('/:task', SubTaskController.createSubTask);
 router.put('/:task/:id', SubTaskController.updateSubTask);
 router.delete('/:task/:id', SubTaskController.deleteSubTask);
 
-
 module.exports = { router };
