@@ -2,11 +2,10 @@ const User = require('../models/user');
 
 getUsers = (req, res) => {
     if (req.query.email) {
-        User.findOne({ email: req.query.email })
+        User.findOne({email: req.query.email})
             .then(docs => res.json(docs))
             .catch(err => console.log(err))
-    }
-    else {
+    } else {
         User.find({})
             .then(docs => res.json(docs))
             .catch(err => console.log(err))
@@ -14,66 +13,71 @@ getUsers = (req, res) => {
 }
 
 getUser = (req, res) => {
-    User.findOne({ _id: req.params.id })
+    User.findOne({_id: req.params.id})
         .then(docs => res.json(docs))
         .catch(err => console.log(err))
 }
 
 createUser = (req, res) => {
-    const { body } = req
+    const {body} = req
     const user = new User();
 
-    if(body.firstName == null || body.firstName == "")
-        res.json(null)
+    if (body.firstName == null || body.firstName == "") {
+        res.sendStatus(400)
+    } else {
+        user.firstName = body.firstName
+    }
 
-    else user.firstName = body.firstName
+    if (body.lastName == null || body.lastName == "") {
+        res.sendStatus(400)
+    } else {
+        user.lastName = body.lastName
+    }
 
-    if(body.lastName == null || body.firstName == "")
-        res.json(null)
+    if (body.email == null || body.email == "") {
+        res.sendStatus(400)
+    } else {
+        user.email = body.email
+    }
 
-    else user.lastName = body.lastName
-    
-    if(body.email == null || body.firstName == "")
-        res.json(null)
-
-    else user.email = body.email
-    
     user.admin = body.admin
 
     user.save()
-        .then(() => res.json({ _id: `${user.id}` }))
+        .then(() => res.json({_id: `${user.id}`}))
         .catch(err => console.log(err))
 }
 
 updateUser = (req, res) => {
-    const { body } = req
+    const {body} = req
     const user = {};
-    if(body.firstName == null || body.firstName == "")
-        res.json(null)
+    if (body.firstName == null || body.firstName == "") {
+        res.sendStatus(400)
+    } else {
+        user.firstName = body.firstName
+    }
 
-    else user.firstName = body.firstName
+    if (body.lastName == null || body.lastName == "") {
+        res.sendStatus(400)
+    } else {
+        user.lastName = body.lastName
+    }
 
-    if(body.lastName == null || body.firstName == "")
-        res.json(null)
-    else user.lastName = body.lastName
+    if (body.email == null || body.email == "") {
+        res.sendStatus(400)
+    } else {
+        user.email = body.email
+    }
 
-    if(body.email == null || body.firstName == "")
-        res.json(null)
-
-    else user.email = body.email
-    
     user.admin = body.admin
 
-    const query = { _id: req.params.id }
-
-    User.updateOne(query, user)
-        .then(() => res.json({ _id: `${req.params.id}` }))
+    User.updateOne({_id: req.params.id}, user)
+        .then(() => res.json({_id: `${req.params.id}`}))
         .catch(err => console.log(err))
 }
 
 deleteUser = (req, res) => {
-    User.deleteOne({ _id: req.params.id })
-        .then(() => res.json({ _id: `${req.params.id}` }))
+    User.deleteOne({_id: req.params.id})
+        .then(() => res.sendStatus(200))
         .catch(err => console.log(err))
 }
 
