@@ -6,7 +6,7 @@ getUsers = (req, res) => {
             .then(docs => res.json(docs))
             .catch(err => console.log(err))
     } else {
-        User.find(['5fea10ee690ca7935c117924', ])
+        User.find({})
             .then(docs => res.json(docs))
             .catch(err => console.log(err))
     }
