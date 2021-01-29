@@ -56,12 +56,12 @@ createTask = (req, res) => {
         task.category = body.category
     }
 
-    if (body.completed != '') {
+    task.completed = 'false'
+    if (body.completed == 'true') {
         task.completed = body.completed
-    } else if(task.userID == null ){
+    }
+    else if(task.userID == null ){
         task.completed = null
-    } else {
-        task.completed = 'false'
     }
 
     if (body.subTask != '') {
