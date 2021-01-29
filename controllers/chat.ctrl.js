@@ -68,7 +68,11 @@ createMessage = (req, res) => {
             }
         }
     })
-        .then(() => res.sendStatus(200))
+        .then(() => {
+            Chat.findOne({_id: req.params.id})
+                .then(docs => res.json(docs))
+                .catch(err => console.log(err))
+        })
         .catch(err => console.log(err))
 }
 
