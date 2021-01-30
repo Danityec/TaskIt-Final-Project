@@ -38,13 +38,19 @@ createChat = (req, res) => {
     }
 
     if (body.message != '' || body.message != null) {
-        chat.message = body.message
+        chat.messages = body.message
     } else {
-        res.sendStatus(400)
+        chat.messages = []
     }
 
     chat.save()
-        .then(() => res.json({id: `${chat.id}`}))
+        .then(() => {
+            Chat.find({
+                $or: [{userID1: body.userID1}, {userID2: body.userID1}]
+            }).sort({_id: -1})
+                .then(docs => res.json(docs))
+                .catch(err => console.log(err))
+        })
         .catch(err => console.log(err))
 }
 
