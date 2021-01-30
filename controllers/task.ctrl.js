@@ -129,7 +129,11 @@ updateTask = (req, res) => {
     }
 
     Task.updateOne({_id: req.params.id}, task)
-        .then(() => res.json({id: `${req.params.id}`}))
+        .then(() => {
+            Task.findOne({_id: req.params.id})
+                .then(docs => res.json(docs))
+                .catch(err => console.log(err))
+        })
         .catch(err => console.log(err))
 }
 
