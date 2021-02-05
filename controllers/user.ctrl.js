@@ -77,7 +77,7 @@ updateUser = (req, res) => {
 
     user.admin = body.admin
 
-    // User.updateOne({googleID: req.params.id}, user)
+    User.updateOne({googleID: req.params.id}, user)
         .then(() => res.json({googleID: `${req.params.id}`}))
         .catch(err => console.log(err))
 }
