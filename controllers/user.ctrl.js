@@ -2,7 +2,7 @@ const User = require('../models/user');
 
 getUsers = (req, res) => {
     if (req.query.email) {
-        User.findOne({email: req.query.email})
+        User.findOne({ email: req.query.email })
             .then(docs => res.json(docs))
             .catch(err => console.log(err))
     } else {
@@ -13,15 +13,15 @@ getUsers = (req, res) => {
 }
 
 getUser = (req, res) => {
-    User.findOne({googleID: req.params.id})
+    User.findOne({ googleID: req.params.id })
         .then(docs => res.json(docs))
         .catch(err => console.log(err))
 }
 
 createUser = (req, res) => {
+
     const {body} = req
     const user = new User();
-
     if (body.googleID == null || body.googleID == "") {
         res.sendStatus(400)
     } else {
@@ -54,7 +54,7 @@ createUser = (req, res) => {
 }
 
 updateUser = (req, res) => {
-    const {body} = req
+    const { body } = req
     const user = {};
 
     if (body.firstName == null || body.firstName == "") {
@@ -77,13 +77,13 @@ updateUser = (req, res) => {
 
     user.admin = body.admin
 
-    User.updateOne({googleID: req.params.id}, user)
-        .then(() => res.json({googleID: `${req.params.id}`}))
+    User.updateOne({ googleID: req.params.id }, user)
+        .then(() => res.json({ googleID: `${req.params.id}` }))
         .catch(err => console.log(err))
 }
 
 deleteUser = (req, res) => {
-    User.deleteOne({googleID: req.params.id})
+    User.deleteOne({ googleID: req.params.id })
         .then(() => res.sendStatus(200))
         .catch(err => console.log(err))
 }

@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
 const cors = require("cors")
+const session = require("express-session")
 
 const authLoginRouter = require("./routers/authLogin.router");
 const taskRouter = require("./routers/task.router");
@@ -13,15 +14,16 @@ const reviewRouter = require("./routers/review.router");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// middleware
 app.use(cors({ origin: true, credentials: true }))
 
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', '*');
-//     res.header('Access-Control-Allow-Methods', '*');
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-//     res.set('Content-Type', 'application/json');
-//     next();
-// });
+// Session
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+  }))
+
 
 
 app.use('/authLogin', authLoginRouter.router);
