@@ -1,7 +1,10 @@
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
+const cors = require("cors")
 
+// const exphbs = require("express-handlebars")
+const authLoginRouter = require("./routers/authLogin.router");
 const taskRouter = require("./routers/task.router");
 const subtaskRouter = require("./routers/subtask.router");
 const userRouter = require("./routers/user.router");
@@ -11,14 +14,21 @@ const reviewRouter = require("./routers/review.router");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.set('Content-Type', 'application/json');
-    next();
-});
+// app.use(cors({ origin: true, credentials: true }))
 
+// app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Methods', '*');
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//     res.set('Content-Type', 'application/json');
+//     next();
+// });
+
+//handlebars
+// app.engine('.hbs', exphbs({defaultLayout: 'main',  extname: '.hbs'}))
+// app.set('view engine', '.hbs')
+
+app.use('/authLogin', authLoginRouter.router);
 app.use('/api/tasks', taskRouter.router);
 app.use('/api/subtasks', subtaskRouter.router);
 app.use('/api/users', userRouter.router);
