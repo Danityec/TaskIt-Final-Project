@@ -13,7 +13,7 @@ getUsers = (req, res) => {
 }
 
 getUser = (req, res) => {
-    User.findOne({_id: req.params.id})
+    User.findOne({googleID: req.params.id})
         .then(docs => res.json(docs))
         .catch(err => console.log(err))
 }
@@ -21,6 +21,12 @@ getUser = (req, res) => {
 createUser = (req, res) => {
     const {body} = req
     const user = new User();
+
+    if (body.googleID == null || body.googleID == "") {
+        res.sendStatus(400)
+    } else {
+        user.googleID = body.googleID
+    }
 
     if (body.firstName == null || body.firstName == "") {
         res.sendStatus(400)
@@ -43,13 +49,14 @@ createUser = (req, res) => {
     user.admin = body.admin
 
     user.save()
-        .then(() => res.json({_id: `${user.id}`}))
+        .then(() => res.json({googleID: `${user.googleID}`}))
         .catch(err => console.log(err))
 }
 
 updateUser = (req, res) => {
     const {body} = req
     const user = {};
+
     if (body.firstName == null || body.firstName == "") {
         res.sendStatus(400)
     } else {
@@ -70,13 +77,13 @@ updateUser = (req, res) => {
 
     user.admin = body.admin
 
-    User.updateOne({_id: req.params.id}, user)
-        .then(() => res.json({_id: `${req.params.id}`}))
+    // User.updateOne({googleID: req.params.id}, user)
+        .then(() => res.json({googleID: `${req.params.id}`}))
         .catch(err => console.log(err))
 }
 
 deleteUser = (req, res) => {
-    User.deleteOne({_id: req.params.id})
+    User.deleteOne({googleID: req.params.id})
         .then(() => res.sendStatus(200))
         .catch(err => console.log(err))
 }
