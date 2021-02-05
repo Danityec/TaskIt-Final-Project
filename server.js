@@ -14,7 +14,7 @@ const reviewRouter = require("./routers/review.router");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(cors({ origin: true, credentials: true }))
+app.use(cors({ origin: true, credentials: true }))
 
 // app.use((req, res, next) => {
 //     res.header('Access-Control-Allow-Origin', '*');
