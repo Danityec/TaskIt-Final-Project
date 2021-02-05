@@ -3,7 +3,6 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const cors = require("cors")
 
-// const exphbs = require("express-handlebars")
 const authLoginRouter = require("./routers/authLogin.router");
 const taskRouter = require("./routers/task.router");
 const subtaskRouter = require("./routers/subtask.router");
@@ -24,9 +23,6 @@ app.use(cors({ origin: true, credentials: true }))
 //     next();
 // });
 
-//handlebars
-// app.engine('.hbs', exphbs({defaultLayout: 'main',  extname: '.hbs'}))
-// app.set('view engine', '.hbs')
 
 app.use('/authLogin', authLoginRouter.router);
 app.use('/api/tasks', taskRouter.router);
