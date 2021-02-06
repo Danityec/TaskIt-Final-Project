@@ -15,7 +15,6 @@ const authMiddleware = require("./middleware/authentication")
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// middleware
 app.use(cors({ origin: true, credentials: true }))
 
 // Session

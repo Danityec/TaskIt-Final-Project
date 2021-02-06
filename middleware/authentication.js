@@ -1,4 +1,4 @@
-const checkAuthenticated = async (req, res, next) => {
+const checkAuthenticated = (req, res, next) => {
     if (req.session.user) {
         console.log("checkAuthenticated = yes")
         next()

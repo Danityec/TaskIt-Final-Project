@@ -32,6 +32,7 @@ createAuthLogin = async (req, res, next) => {
             if (docs) {
                 console.log('the user exists')
                 req.session.user = docs
+                res.json(req.session.user)
             } else {
                 console.log('the user does NOT exist')
                 let user = {
