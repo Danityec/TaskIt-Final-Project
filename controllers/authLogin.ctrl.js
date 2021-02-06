@@ -5,7 +5,7 @@ const client = new OAuth2Client(process.env.CLIENT_ID);
 
 getLogout = (req, res) => {
     console.log("logout1: ",req.session)
-
+    res.clearCookie('connect.sid');
     req.session.destroy((err) => {
         if(err){
             return console.log(err);
@@ -32,6 +32,7 @@ createAuthLogin = async (req, res, next) => {
             if (docs) {
                 console.log('the user exists')
                 req.session.user = docs
+                console.log(req.session.id)
                 res.json(req.session.user)
             } else {
                 console.log('the user does NOT exist')

@@ -17,11 +17,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({ origin: true, credentials: true }))
 
-// Session
 app.use(session({
     secret: process.env.CLIENT_SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
   }))
 
 app.use('/authLogin', authLoginRouter.router);

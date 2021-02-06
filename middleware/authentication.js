@@ -1,4 +1,5 @@
 const checkAuthenticated = (req, res, next) => {
+    console.log(req.session.id)
     if (req.session.user) {
         console.log("checkAuthenticated = yes")
         next()
