@@ -26,6 +26,8 @@ app.use(session({
 
 app.use('/authLogin', authLoginRouter.router);
 
+// every time = check if admin or user
+
 app.use('/api/tasks', taskRouter.router);
 app.use('/api/subtasks', subtaskRouter.router);
 app.use('/api/users', userRouter.router);
