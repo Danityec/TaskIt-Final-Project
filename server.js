@@ -13,6 +13,8 @@ const userRouter = require("./routers/user.router");
 const chatRouter = require("./routers/chat.router");
 const reviewRouter = require("./routers/review.router");
 const authMiddleware = require("./middleware/authentication")
+const googleTaskRouter = require("./routers/googleTask.router");
+
 app.use(cookieParser());
 
 app.use(express.json());
@@ -46,6 +48,7 @@ app.use(authMiddleware.checkAuthenticated)
 //     }
 // })
 
+app.use('/api/googleTasks', googleTaskRouter.router);
 app.use('/api/tasks', taskRouter.router);
 app.use('/api/subtasks', subtaskRouter.router);
 app.use('/api/users', userRouter.router);
