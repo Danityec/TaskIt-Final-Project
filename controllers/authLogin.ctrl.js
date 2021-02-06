@@ -4,15 +4,20 @@ const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client(process.env.CLIENT_ID);
 
 getLogout = (req, res) => {
-    console.log("logout1: ",req.session)
+    // clear cookie
+    res.clearCookie('user');
     res.clearCookie('connect.sid');
-    req.session.destroy((err) => {
-        if(err){
-            return console.log(err);
-        }
-        console.log("logout2: ",req.session)
-        res.send("logout");
-    });
+    if(req.cookies.user){
+        console.log('hghgg')
+    }
+    res.send("logout");
+    // req.session.destroy((err) => {
+    //     if(err){
+    //         return console.log(err);
+    //     }
+    //     console.log("logout2: ",req.session)
+    //     res.send("logout");
+    // });
 };
 
 verify = async (token) => {
@@ -20,7 +25,7 @@ verify = async (token) => {
         idToken: token,
         audience: process.env.CLIENT_ID
     });
-     return ticket.getPayload();
+    return ticket.getPayload();
 }
 
 createAuthLogin = async (req, res, next) => {
@@ -31,9 +36,12 @@ createAuthLogin = async (req, res, next) => {
         .then(docs => {
             if (docs) {
                 console.log('the user exists')
-                req.session.user = docs
-                console.log(req.session.id)
-                res.json(req.session.user)
+                // req.session.user = docs
+                // console.log("createAuthLogin sess: "+req.session)
+                res.cookie('user', docs, {expires: new Date(Date.now() + 3600000)})
+                console.log("hhh "+req.cookies.user)
+                console.log(req)
+                res.json(docs)
             } else {
                 console.log('the user does NOT exist')
                 let user = {
@@ -42,7 +50,7 @@ createAuthLogin = async (req, res, next) => {
                     l_name: payload['family_name'],
                     email: payload['email'],
                 }
-                req.session.payload = user
+                // req.session.payload = user
                 UserCtrl.createUser(user, req, res)
             }
         })

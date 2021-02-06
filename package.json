@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/Danityec/TaskIt#readme",
   "dependencies": {
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -27,7 +29,8 @@
     "moment": "^2.29.1",
     "mongoose": "^5.11.8",
     "passport": "^0.4.1",
-    "passport-google-oauth20": "^2.0.0"
+    "passport-google-oauth20": "^2.0.0",
+    "session-file-store": "^1.5.0"
   },
   "devDependencies": {
     "morgan": "^1.10.0",
