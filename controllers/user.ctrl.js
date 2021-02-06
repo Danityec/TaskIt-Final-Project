@@ -18,7 +18,7 @@ getUser = (req, res) => {
         .catch(err => console.log(err))
 }
 
-createUser = (token, req, res, next) => {
+createUser = (token, req, res) => {
     console.log("token: " + token.id)
     const user = new User();
 
@@ -30,12 +30,10 @@ createUser = (token, req, res, next) => {
 
     user.save()
         .then(() => {
-            console.log("jjhjhj")
             User.findOne({googleID: token['id']})
                 .then(docs => {
                     req.session.user = docs
-                    next(req, ()=>{res.json(req.session.user)})
-                    //res.json(docs)
+                    res.json(req.session.user)
                 })
                 .catch(err => console.log(err))
         })

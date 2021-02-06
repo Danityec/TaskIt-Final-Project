@@ -25,7 +25,6 @@ createAuthLogin = async (req, res, next) => {
             if (docs) {
                 console.log('the user exists')
                 req.session.user = docs
-                checkRole(req, ()=>{res.json(req.session.user)})
             } else {
                 console.log('the user does NOT exist')
                 let user = {
@@ -35,22 +34,12 @@ createAuthLogin = async (req, res, next) => {
                     email: payload['email'],
                 }
                 req.session.payload = user
-                UserCtrl.createUser(user, req, res, checkRole)
+                UserCtrl.createUser(user, req, res)
             }
         })
         .catch(err => {
             console.log(err)
         })
-}
-
-checkRole = (req, next) => {
-    if(req.session.user.admin){
-        console.log("admin")
-        next()
-    } else {
-        console.log("regUser")
-        next()
-    }
 }
 
 module.exports = {

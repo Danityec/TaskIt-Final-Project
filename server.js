@@ -10,6 +10,7 @@ const subtaskRouter = require("./routers/subtask.router");
 const userRouter = require("./routers/user.router");
 const chatRouter = require("./routers/chat.router");
 const reviewRouter = require("./routers/review.router");
+const authMiddleware = require("./middleware/authentication")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -26,7 +27,7 @@ app.use(session({
 
 app.use('/authLogin', authLoginRouter.router);
 
-// every time = check if admin or user
+app.use(authMiddleware.checkAuthenticated)
 
 app.use('/api/tasks', taskRouter.router);
 app.use('/api/subtasks', subtaskRouter.router);
