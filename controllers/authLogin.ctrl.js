@@ -16,17 +16,6 @@ verify = async (token) => {
      return ticket.getPayload();
 }
 
-checkRole = (req, res, next) => {
-    console.log("checkRole: "+ req.session.user)
-    if(req.session.user.admin){
-        // admin
-        // next(admin, docs)
-    } else {
-        // regular user
-        // next(regUser, docs)
-    }
-}
-
 createAuthLogin = async (req, res, next) => {
     let token = req.body.token
     let payload = await verify(token)
@@ -36,8 +25,7 @@ createAuthLogin = async (req, res, next) => {
             if (docs) {
                 console.log('the user exists')
                 req.session.user = docs
-                checkRole(req, res, next)
-
+                checkRole(req, ()=>{res.json(req.session.user)})
             } else {
                 console.log('the user does NOT exist')
                 let user = {
@@ -47,11 +35,7 @@ createAuthLogin = async (req, res, next) => {
                     email: payload['email'],
                 }
                 req.session.payload = user
-                UserCtrl.createUser(user, res)
-                // console.log("session: "+req.session.user)
-
-                // req.session.user = docs
-                // checkRole(req, res, next)
+                UserCtrl.createUser(user, req, res, checkRole)
             }
         })
         .catch(err => {
@@ -59,6 +43,15 @@ createAuthLogin = async (req, res, next) => {
         })
 }
 
+checkRole = (req, next) => {
+    if(req.session.user.admin){
+        console.log("admin")
+        next()
+    } else {
+        console.log("regUser")
+        next()
+    }
+}
 
 module.exports = {
     getLogout,

@@ -18,7 +18,7 @@ getUser = (req, res) => {
         .catch(err => console.log(err))
 }
 
-createUser = (token, res) => {
+createUser = (token, req, res, next) => {
     console.log("token: " + token.id)
     const user = new User();
 
@@ -32,7 +32,11 @@ createUser = (token, res) => {
         .then(() => {
             console.log("jjhjhj")
             User.findOne({googleID: token['id']})
-                .then(docs => res.json(docs))
+                .then(docs => {
+                    req.session.user = docs
+                    next(req, ()=>{res.json(req.session.user)})
+                    //res.json(docs)
+                })
                 .catch(err => console.log(err))
         })
         .catch(err => console.log(err))
@@ -79,5 +83,4 @@ module.exports = {
     createUser,
     updateUser,
     deleteUser,
-    createUserAuth: createUser
 }
