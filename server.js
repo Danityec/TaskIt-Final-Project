@@ -19,21 +19,20 @@ app.use(cors({ origin: true, credentials: true }))
 
 // Session
 app.use(session({
-    secret: 'keyboard cat',
+    secret: process.env.CLIENT_SECRET,
     resave: false,
     saveUninitialized: false
   }))
 
-
-
 app.use('/authLogin', authLoginRouter.router);
+
 app.use('/api/tasks', taskRouter.router);
 app.use('/api/subtasks', subtaskRouter.router);
 app.use('/api/users', userRouter.router);
 app.use('/api/chats', chatRouter.router);
 app.use('/api/reviews', reviewRouter.router);
 
-app.use((req, res, next) => {
+app.use((req, res) => {
     res.status(500).send('Something is broken!');
 });
 
