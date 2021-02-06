@@ -8,7 +8,7 @@ getLogout = (req, res) => {
     res.redirect('/')
 }
 
-const verify = async (token) => {
+verify = async (token) => {
     const ticket = await client.verifyIdToken({
         idToken: token,
         audience: process.env.CLIENT_ID
@@ -16,6 +16,16 @@ const verify = async (token) => {
      return ticket.getPayload();
 }
 
+checkRole = (req, res, next) => {
+    console.log("checkRole: "+ req.session.user)
+    if(req.session.user.admin){
+        // admin
+        // next(admin, docs)
+    } else {
+        // regular user
+        // next(regUser, docs)
+    }
+}
 
 createAuthLogin = async (req, res, next) => {
     let token = req.body.token
@@ -25,8 +35,9 @@ createAuthLogin = async (req, res, next) => {
         .then(docs => {
             if (docs) {
                 console.log('the user exists')
-                next()
-                // res.json(docs)
+                req.session.user = docs
+                checkRole(req, res, next)
+
             } else {
                 console.log('the user does NOT exist')
                 let user = {
@@ -35,8 +46,12 @@ createAuthLogin = async (req, res, next) => {
                     l_name: payload['family_name'],
                     email: payload['email'],
                 }
+                req.session.payload = user
                 UserCtrl.createUser(user, res)
-                next()
+                // console.log("session: "+req.session.user)
+
+                // req.session.user = docs
+                // checkRole(req, res, next)
             }
         })
         .catch(err => {
