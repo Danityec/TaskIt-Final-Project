@@ -4,13 +4,15 @@ const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client(process.env.CLIENT_ID);
 
 getLogout = (req, res) => {
+    res.clearCookie('user')
     res.clearCookie('connect.sid');
-    req.session.destroy((err) => {
-        if(err){
-            return console.log(err);
-        }
-        res.send("logout");
-    });
+    res.send("logout");
+    // req.session.destroy((err) => {
+    //     if(err){
+    //         return console.log(err);
+    //     }
+    //     res.send("logout");
+    // });
 };
 
 verify = async (token) => {
@@ -28,7 +30,8 @@ createAuthLogin = async (req, res, next) => {
     await User.findOne({googleID: payload['sub']})
         .then(docs => {
             if (docs) {
-                req.session.user = docs
+                // req.session.user = docs
+                res.cookie('user', docs)
                 res.json(docs)
             } else {
                 console.log('the user does NOT exist')
