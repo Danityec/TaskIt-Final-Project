@@ -11,3 +11,5 @@ const options = {
 mongoose.connect(DB_HOST, options)
         .then(() => console.log('connected'))
         .catch(err => console.log(`connection error: ${err}`));
+
+module.exports = mongoose

@@ -19,7 +19,6 @@ getUser = (req, res) => {
 }
 
 createUser = (token, req, res) => {
-    console.log("token: " + token.id)
     const user = new User();
 
     user.googleID = token['id']
@@ -32,9 +31,8 @@ createUser = (token, req, res) => {
         .then(() => {
             User.findOne({googleID: token['id']})
                 .then(docs => {
-                    // req.session.user = docs
-                    // res.cookie('user', docs, {expires: new Date(Date.now() + 3600000)})
-                    // res.json(req.session.user)
+                    req.session.user = docs
+                    res.json(req.session.user)
                 })
                 .catch(err => console.log(err))
         })
