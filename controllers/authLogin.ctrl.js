@@ -7,12 +7,6 @@ getLogout = (req, res) => {
     res.clearCookie('user')
     res.clearCookie('connect.sid');
     res.send("logout");
-    // req.session.destroy((err) => {
-    //     if(err){
-    //         return console.log(err);
-    //     }
-    //     res.send("logout");
-    // });
 };
 
 verify = async (token) => {
@@ -26,11 +20,11 @@ verify = async (token) => {
 createAuthLogin = async (req, res, next) => {
     let token = req.body.token
     let payload = await verify(token)
+    console.log(payload)
 
     await User.findOne({googleID: payload['sub']})
         .then(docs => {
             if (docs) {
-                // req.session.user = docs
                 res.cookie('user', docs)
                 res.json(docs)
             } else {
@@ -40,6 +34,7 @@ createAuthLogin = async (req, res, next) => {
                     f_name: payload['given_name'],
                     l_name: payload['family_name'],
                     email: payload['email'],
+                    avatar: payload['picture']
                 }
                 UserCtrl.createUser(user, req, res)
             }

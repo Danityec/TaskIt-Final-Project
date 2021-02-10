@@ -25,13 +25,13 @@ createUser = (token, req, res) => {
     user.firstName = token['f_name']
     user.lastName = token['l_name']
     user.email = token['email']
+    user.avatar = token['avatar']
     user.admin = false
 
     user.save()
         .then(() => {
             User.findOne({googleID: token['id']})
                 .then(docs => {
-                    // req.session.user = docs
                     res.cookie('user', docs)
                     res.json(docs)
                 })

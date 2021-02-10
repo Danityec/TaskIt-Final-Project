@@ -1,7 +1,9 @@
 const checkAuthenticated = (req, res, next) => {
     if (req.cookies.user) {
+        console.log("checkAuthenticated = allowed")
         next()
     } else {
+        console.log("checkAuthenticated = NOT allowed")
         res.status(401).send('user is unauthenticated')
     }
 }
