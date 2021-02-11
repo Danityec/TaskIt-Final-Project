@@ -13,7 +13,7 @@ verify = async (token) => {
     const ticket = await client.verifyIdToken({
         idToken: token,
         audience: process.env.CLIENT_ID
-    });
+    }).catch(err => console.log(err))
     return ticket.getPayload();
 }
 
