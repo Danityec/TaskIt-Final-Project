@@ -15,7 +15,6 @@ const userRouter = require("./routers/user.router");
 const chatRouter = require("./routers/chat.router");
 const reviewRouter = require("./routers/review.router");
 const authMiddleware = require("./middleware/authentication")
-const googleTaskRouter = require("./routers/googleTask.router")
 
 const logStream = fs.createWriteStream(path.join(__dirname, 'log.txt'), { flags: 'a' })
 
@@ -35,7 +34,6 @@ app.get('/quotes', (req, res) => {
 app.use('/authLogin', authLoginRouter.router);
 app.use(authMiddleware.checkAuthenticated)
 
-app.use('/api/googleTasks', googleTaskRouter.router);
 app.use('/api/tasks', taskRouter.router);
 app.use('/api/subtasks', subtaskRouter.router);
 app.use('/api/users', userRouter.router);

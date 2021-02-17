@@ -3,7 +3,6 @@ const { Schema, model } = require('mongoose');
 const subTaskSchema = new Schema({
     name: { type: String , require:true },
     completed: { type: Boolean }
-
 });
 
 const taskSchema = new Schema({
@@ -14,7 +13,6 @@ const taskSchema = new Schema({
     category: { type: String , require:true },
     completed: { type: Boolean },
     subTask: [subTaskSchema],
-
 }, { collection: 'tasks' });
 
 const Task = model('Task', taskSchema);
