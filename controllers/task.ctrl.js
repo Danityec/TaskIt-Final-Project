@@ -22,6 +22,15 @@ getTask = (req, res) => {
         .catch(err => console.log(err))
 }
 
+function findTemplateId() {
+    return new Promise((resolve, reject) => {
+        const n = Math.floor(Math.random() * 1000);
+        Task.findOne({'templateID': n})
+            .then(docs => findTemplateId())
+            .catch(err => resolve(n))
+    })
+}
+
 createTask = (req, res) => {
     const {body} = req
 
@@ -36,6 +45,7 @@ createTask = (req, res) => {
         task.userID = body.userID
     } else {
         task.userID = null
+        findTemplateId().then((number)=>{task.templateID = number})
     }
 
     if (body.sharedWith != '') {

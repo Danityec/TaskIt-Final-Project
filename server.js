@@ -6,6 +6,7 @@ const fs = require('fs')
 const cors = require("cors")
 const cookieParser = require("cookie-parser")
 const morgan = require('morgan')
+const Request = require("request");
 
 const authLoginRouter = require("./routers/authLogin.router");
 const taskRouter = require("./routers/task.router");
@@ -23,6 +24,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: true, credentials: true }))
 app.use(cookieParser());
 app.use(morgan('tiny', { stream: logStream }))
+
+app.get('/quotes', (req, res) => {
+    Request.get("https://zenquotes.io/api/random", (error, response, body) => {
+        if (error) res.sendStatus(400)
+        else res.json(JSON.parse(body));
+    });
+})
 
 app.use('/authLogin', authLoginRouter.router);
 app.use(authMiddleware.checkAuthenticated)
