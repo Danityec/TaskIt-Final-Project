@@ -7,8 +7,8 @@ const userSchema = new Schema({
     email: { type: String, require:true  },
     admin: { type: Boolean, default:false },
     avatar: { type: String }
-
 }, { collection: 'users' });
 
 const User = model('User', userSchema);
+
 module.exports = User;

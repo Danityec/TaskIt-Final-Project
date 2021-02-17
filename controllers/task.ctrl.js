@@ -23,7 +23,7 @@ getTask = (req, res) => {
 }
 
 function findTemplateId() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {           //renove reject?
         const n = Math.floor(Math.random() * 1000);
         Task.findOne({'templateID': n})
             .then(docs => findTemplateId())

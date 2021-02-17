@@ -5,7 +5,6 @@ const reviewSchema = new Schema({
     userID: { type: String , require:true },
     title: { type: String , require:true },
     reviewBody: { type: String , require:true },
-
 }, { collection: 'reviews' });
 
 const Review = model('Review', reviewSchema);
