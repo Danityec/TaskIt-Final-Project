@@ -25,8 +25,7 @@ createAuthLogin = async (req, res, next) => {
     await User.findOne({googleID: payload['sub']})
         .then(docs => {
             if (docs) {
-                res.cookie('user', docs)
-                res.json(docs)
+                    res.json(docs)
             } else {
                 console.log('the user does NOT exist')
                 let user = {
