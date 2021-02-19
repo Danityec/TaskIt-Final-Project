@@ -31,9 +31,7 @@ createUser = (token, req, res) => {
     user.save()
         .then(() => {
             User.findOne({googleID: token['id']})
-                .then(docs => {
-                    res.json(docs)
-                })
+                .then(docs => res.json(docs))
                 .catch(err => console.log(err))
         })
         .catch(err => console.log(err))

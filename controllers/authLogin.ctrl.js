@@ -17,17 +17,15 @@ verify = async (token) => {
     return ticket.getPayload();
 }
 
-createAuthLogin = async (req, res, next) => {
+createAuthLogin = async (req, res) => {
     let token = req.body.token
     let payload = await verify(token)
-    console.log(payload)
 
     await User.findOne({googleID: payload['sub']})
         .then(docs => {
             if (docs) {
                     res.json(docs)
             } else {
-                console.log('the user does NOT exist')
                 let user = {
                     id: payload['sub'],
                     f_name: payload['given_name'],
@@ -38,9 +36,7 @@ createAuthLogin = async (req, res, next) => {
                 UserCtrl.createUser(user, req, res)
             }
         })
-        .catch(err => {
-            console.log(err)
-        })
+        .catch(err => console.log(err))
 }
 
 module.exports = {

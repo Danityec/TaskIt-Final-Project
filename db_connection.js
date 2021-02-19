@@ -9,7 +9,7 @@ const options = {
     pass: DB_PASS
 };
 mongoose.connect(DB_HOST, options)
-        .then(() => ('connected'))
-        .catch(err => (`connection error: ${err}`));
+        .then(() => console.log('connected'))
+        .catch(err => console.log(`connection error: ${err}`));
 
 module.exports = mongoose

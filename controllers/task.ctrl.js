@@ -22,8 +22,8 @@ getTask = (req, res) => {
         .catch(err => console.log(err))
 }
 
-function findTemplateId() {
-    return new Promise((resolve, reject) => {           //renove reject?
+const findTemplateId = () => {
+    return new Promise((resolve, reject) => {           //remove reject?
         const n = Math.floor(Math.random() * 1000);
         Task.findOne({'templateID': n})
             .then(docs => findTemplateId())
@@ -35,46 +35,49 @@ createTask = (req, res) => {
     const {body} = req
 
     const task = new Task();
-    if (body.templateID != '') {
+    if (body.templateID !== '') {
         task.templateID = body.templateID
     } else {
         task.templateID = null
     }
 
-    if (body.userID != '') {
+    if (body.userID !== '') {
         task.userID = body.userID
     } else {
         task.userID = null
-        findTemplateId().then((number)=>{task.templateID = number})
+        findTemplateId().then((number)=>{
+            console.log(number)
+            task.templateID = number
+        })
     }
 
-    if (body.sharedWith != '') {
+    if (body.sharedWith !== '') {
         task.sharedWith = body.sharedWith
     } else {
         task.sharedWith = []
     }
 
-    if (body.name == null || body.name == "") {
+    if (body.name == null || body.name === "") {
         res.sendStatus(400)
     } else {
         task.name = body.name
     }
 
-    if (body.category == null || body.category == "") {
+    if (body.category == null || body.category === "") {
         res.sendStatus(400)
     } else {
         task.category = body.category
     }
 
     task.completed = 'false'
-    if (body.completed == 'true') {
+    if (body.completed === 'true') {
         task.completed = body.completed
     }
     else if(task.userID == null ){
         task.completed = null
     }
 
-    if (body.subTask != '') {
+    if (body.subTask !== '') {
         task.subTask = body.subTask
     } else {
         task.subTask = []
@@ -110,31 +113,31 @@ updateTask = (req, res) => {
     const {body} = req
     const task = {};
 
-    if (body.templateID != '' && body.templateID != null) {
+    if (body.templateID !== '' && body.templateID != null) {
         task.templateID = body.templateID
     }
 
-    if (body.userID != '' && body.userID != null) {
+    if (body.userID !== '' && body.userID != null) {
         task.userID = body.userID
     }
 
-    if (body.sharedWith != '' && body.sharedWith != null && body.sharedWith != []) {
+    if (body.sharedWith !== '' && body.sharedWith != null && body.sharedWith !== []) {
         task.sharedWith = body.sharedWith
     }
 
-    if (body.name != '' && body.name != null) {
+    if (body.name !== '' && body.name != null) {
         task.name = body.name
     }
 
-    if (body.category != '' && body.category != null) {
+    if (body.category !== '' && body.category != null) {
         task.category = body.category
     }
 
-    if (body.completed == true || body.completed == false) {
+    if (body.completed === true || body.completed === false) {
         task.completed = body.completed
     }
 
-    if (body.subTask != '' && body.subTask != null && body.subTask != []) {
+    if (body.subTask !== '' && body.subTask != null && body.subTask !== []) {
         task.subTask = body.subTask
     }
 

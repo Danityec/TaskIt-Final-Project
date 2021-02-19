@@ -26,25 +26,25 @@ createReview = (req, res) => {
     const {body} = req
     const review = new Review();
 
-    if (body.templateID == null || body.templateID == "") {
+    if (body.templateID == null || body.templateID === "") {
         res.sendStatus(400)
     } else {
         review.templateID = body.templateID
     }
 
-    if (body.userID == null || body.userID == "") {
+    if (body.userID == null || body.userID === "") {
         res.sendStatus(400)
     } else {
         review.userID = body.userID
     }
 
-    if (body.title == null || body.title == "") {
+    if (body.title == null || body.title === "") {
         res.sendStatus(400)
     } else {
         review.title = body.title
     }
 
-    if (body.reviewBody == null || body.reviewBody == "") {
+    if (body.reviewBody == null || body.reviewBody === "") {
         res.sendStatus(400)
     } else {
         review.reviewBody = body.reviewBody
@@ -59,13 +59,13 @@ updateReview = (req, res) => {
     const {body} = req
     const review = {};
 
-    if (body.title == null || body.title == "") {
+    if (body.title == null || body.title === "") {
         res.sendStatus(400)
     } else {
         review.title = body.title
     }
 
-    if (body.reviewBody == null || body.reviewBody == "") {
+    if (body.reviewBody == null || body.reviewBody === "") {
         res.sendStatus(400)
     } else {
         review.reviewBody = body.reviewBody

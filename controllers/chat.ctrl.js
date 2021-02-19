@@ -25,19 +25,19 @@ createChat = (req, res) => {
     const {body} = req
     const chat = new Chat();
 
-    if (body.userID1 != '' || body.userID1 != null) {
+    if (body.userID1 !== '' || body.userID1 != null) {
         chat.userID1 = body.userID1
     } else {
         res.sendStatus(400)
     }
 
-    if (body.userID2 != '' || body.userID2 != null) {
+    if (body.userID2 !== '' || body.userID2 != null) {
         chat.userID2 = body.userID2
     } else {
         res.sendStatus(400)
     }
 
-    if (body.message != '' || body.message != null) {
+    if (body.message !== '' || body.message != null) {
         chat.messages = body.message
     } else {
         chat.messages = []
@@ -57,11 +57,11 @@ createChat = (req, res) => {
 createMessage = (req, res) => {
     const {body} = req
 
-    if (body.senderID == null || body.senderID == "") {
+    if (body.senderID == null || body.senderID === "") {
         res.sendStatus(400)
     }
 
-    if (body.message == null || body.message == "") {
+    if (body.message == null || body.message === "") {
         res.sendStatus(400)
     }
 
