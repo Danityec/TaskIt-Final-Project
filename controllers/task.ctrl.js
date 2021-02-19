@@ -9,6 +9,10 @@ getTasks = (req, res) => {
         Task.find({completed: null}).sort({_id: -1})
             .then(docs => res.json(docs))
             .catch(err => console.log(err))
+    } else if (req.query.email) {
+        Task.find({sharedWith: req.query.email}).sort({_id: -1})
+            .then(docs => res.json(docs))
+            .catch(err => console.log(err))
     } else {
         Task.find({}).sort({_id: -1})
             .then(docs => res.json(docs))
@@ -22,33 +26,22 @@ getTask = (req, res) => {
         .catch(err => console.log(err))
 }
 
-const findTemplateId = () => {
-    return new Promise((resolve, reject) => {           //remove reject?
-        const n = Math.floor(Math.random() * 1000);
-        Task.findOne({'templateID': n})
-            .then(docs => findTemplateId())
-            .catch(err => resolve(n))
-    })
-}
-
-createTask = (req, res) => {
+createTask = async (req, res) => {
     const {body} = req
 
     const task = new Task();
-    if (body.templateID !== '') {
+    if (body.templateID && body.templateID !== '') {
         task.templateID = body.templateID
     } else {
         task.templateID = null
     }
 
-    if (body.userID !== '') {
+    if (body.userID && body.userID !== '') {
         task.userID = body.userID
     } else {
         task.userID = null
-        findTemplateId().then((number)=>{
-            console.log(number)
-            task.templateID = number
-        })
+        const lastTemplate = await Task.find({completed: null}).sort({_id: -1}).limit(1)
+        task.templateID = lastTemplate[0].templateID + 1
     }
 
     if (body.sharedWith !== '') {
@@ -57,13 +50,13 @@ createTask = (req, res) => {
         task.sharedWith = []
     }
 
-    if (body.name == null || body.name === "") {
+    if (body.name === null || body.name === "") {
         res.sendStatus(400)
     } else {
         task.name = body.name
     }
 
-    if (body.category == null || body.category === "") {
+    if (body.category === null || body.category === "") {
         res.sendStatus(400)
     } else {
         task.category = body.category
@@ -72,8 +65,7 @@ createTask = (req, res) => {
     task.completed = 'false'
     if (body.completed === 'true') {
         task.completed = body.completed
-    }
-    else if(task.userID == null ){
+    } else if (task.userID == null) {
         task.completed = null
     }
 

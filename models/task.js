@@ -6,7 +6,7 @@ const subTaskSchema = new Schema({
 });
 
 const taskSchema = new Schema({
-    templateID: { type: String },
+    templateID: { type: Number },
     userID: { type: String },
     sharedWith: { type: Array },
     name: { type: String , require:true  },
