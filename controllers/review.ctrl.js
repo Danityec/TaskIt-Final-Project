@@ -10,9 +10,7 @@ getReviews = (req, res) => {
             .then(docs => res.json(docs))
             .catch(err => console.log(err))
     } else {
-        Review.find({}).sort({_id: -1})
-            .then(docs => res.json(docs))
-            .catch(err => console.log(err))
+        res.sendStatus(400)
     }
 }
 
@@ -55,37 +53,8 @@ createReview = (req, res) => {
         .catch(err => console.log(err))
 }
 
-updateReview = (req, res) => {
-    const {body} = req
-    const review = {};
-
-    if (body.title == null || body.title === "") {
-        res.sendStatus(400)
-    } else {
-        review.title = body.title
-    }
-
-    if (body.reviewBody == null || body.reviewBody === "") {
-        res.sendStatus(400)
-    } else {
-        review.reviewBody = body.reviewBody
-    }
-
-    Review.updateOne({_id: req.params.id}, review)
-        .then(() => res.json({_id: `${req.params.id}`}))
-        .catch(err => console.log(err))
-}
-
-deleteReview = (req, res) => {
-    Review.deleteOne({_id: req.params.id})
-        .then(() => res.sendStatus(200))
-        .catch(err => console.log(err))
-}
-
 module.exports = {
     getReviews,
     getReview,
-    createReview,
-    updateReview,
-    deleteReview
+    createReview
 }

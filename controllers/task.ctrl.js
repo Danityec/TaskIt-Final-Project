@@ -14,9 +14,7 @@ getTasks = (req, res) => {
             .then(docs => res.json(docs))
             .catch(err => console.log(err))
     } else {
-        Task.find({}).sort({_id: -1})
-            .then(docs => res.json(docs))
-            .catch(err => console.log(err))
+        res.sendStatus(400)
     }
 }
 

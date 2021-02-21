@@ -9,9 +9,7 @@ getChats = (req, res) => {
             .then(docs => res.json(docs))
             .catch(err => console.log(err))
     } else {
-        Chat.find({})
-            .then(docs => res.json(docs))
-            .catch(err => console.log(err))
+        res.sendStatus(400)
     }
 }
 
