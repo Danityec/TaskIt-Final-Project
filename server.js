@@ -32,13 +32,12 @@ app.get('/quotes', (req, res) => {
 })
 
 app.use('/authLogin', authLoginRouter.router);
-app.use(authMiddleware.checkAuthenticated)
 
-app.use('/api/tasks', taskRouter.router);
-app.use('/api/subtasks', subtaskRouter.router);
-app.use('/api/users', userRouter.router);
-app.use('/api/chats', chatRouter.router);
-app.use('/api/reviews', reviewRouter.router);
+app.use('/api/tasks', authMiddleware.checkAuthenticated, taskRouter.router);
+app.use('/api/subtasks', authMiddleware.checkAuthenticated, subtaskRouter.router);
+app.use('/api/users', authMiddleware.checkAuthenticated, userRouter.router);
+app.use('/api/chats', authMiddleware.checkAuthenticated, chatRouter.router);
+app.use('/api/reviews', authMiddleware.checkAuthenticated, reviewRouter.router);
 
 app.use((req, res) => {
     res.status(500).send('Something is broken!');
