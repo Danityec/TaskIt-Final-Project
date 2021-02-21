@@ -32,7 +32,7 @@ app.get('/quotes', (req, res) => {
 })
 
 app.use('/authLogin', authLoginRouter.router);
-app.use(authMiddleware.checkAuthenticated)
+// app.use(authMiddleware.checkAuthenticated)
 
 app.use('/api/tasks', taskRouter.router);
 app.use('/api/subtasks', subtaskRouter.router);
