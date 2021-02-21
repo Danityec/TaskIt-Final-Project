@@ -1743,3 +1743,13 @@ GET /api/users 304 - - 157.702 ms
 GET /api/users?email=lisa.simpson.taskit@gmail.com 304 - - 154.527 ms
 GET /api/tasks?userID=106859904573047383930 200 2015 - 248.132 ms
 GET /api/tasks?email=marge.simpson.taskit@gmail.com 304 - - 88.947 ms
+POST /authLogin 200 264 - 397.050 ms
+GET /api/tasks?userID=106859904573047383930 304 - - 101.114 ms
+GET /api/tasks?email=marge.simpson.taskit@gmail.com 304 - - 92.972 ms
+GET /api/tasks?userID=106859904573047383930 304 - - 99.162 ms
+GET /api/tasks?email=marge.simpson.taskit@gmail.com 304 - - 85.668 ms
+GET /authLogin/logout 304 - - 1.019 ms
+POST /authLogin 200 264 - 91.029 ms
+GET /api/tasks?userID=106859904573047383930 304 - - 107.240 ms
+GET /api/tasks?email=marge.simpson.taskit@gmail.com 304 - - 85.778 ms
+GET /authLogin/logout 304 - - 0.633 ms
