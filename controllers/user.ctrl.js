@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Session = require('../models/session');
 
 getUsers = (req, res) => {
     if (req.query.email) {
@@ -30,8 +31,14 @@ createUser = (token, req, res) => {
 
     user.save()
         .then(() => {
-            User.findOne({googleID: token['id']})
-                .then(docs => res.json(docs))
+            const session = new Session()
+            session.cookie = user
+            session.save()
+                .then(() => {
+                    User.findOne({googleID: token['id']})
+                        .then(docs => res.json(docs))
+                        .catch(err => console.log(err))
+                })
                 .catch(err => console.log(err))
         })
         .catch(err => console.log(err))
