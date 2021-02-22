@@ -32,7 +32,7 @@ createUser = (token, req, res) => {
     user.save()
         .then(() => {
             const session = new Session()
-            session.cookie = user
+            session.id = user.googleID
             session.save()
                 .then(() => {
                     User.findOne({googleID: token['id']})

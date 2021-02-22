@@ -27,7 +27,7 @@ createAuthLogin = async (req, res) => {
         .then(docs => {
             if (docs) {
                 const session = new Session()
-                session.cookie = docs
+                session.id = docs.googleID
                 session.save()
                     .then(() => res.json(docs))
                     .catch(err => console.log(err))

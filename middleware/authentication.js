@@ -1,7 +1,7 @@
 const Session = require('../models/session');
 
 const checkAuthenticated = (req, res, next) => {
-    Session.findOne({ cookie: req.headers['user'] })
+    Session.findOne({ id: req.headers.user.googleID })
         .then(docs => {
             console.log('checkAuthenticated = good!!')
             console.log(docs)
