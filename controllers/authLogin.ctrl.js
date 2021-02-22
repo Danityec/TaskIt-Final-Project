@@ -24,8 +24,9 @@ createAuthLogin = async (req, res) => {
     await User.findOne({googleID: payload['sub']})
         .then(docs => {
             if (docs) {
-                    res.cookie('user', docs)
-                    res.json(docs)
+                res.cookie('user', docs, { domain: '.taskitapp.netlify.app' })
+                res.cookie('user', docs, { domain: '.task--it.herokuapp.com' })
+                res.json(docs)
             } else {
                 let user = {
                     id: payload['sub'],
