@@ -5,13 +5,13 @@ const client = new OAuth2Client(process.env.CLIENT_ID);
 const Session = require('../models/session');
 
 getLogout = (req, res) => {
-    console.log(req.headers['user'])
-    let id = null
+    console.log(req.headers['user'].googleID)
     Session.findOne({ cookie: req.headers['user'] })
         .then(docs => {
+            console.log('docs')
             console.log(docs)
             if (docs !== []){
-                Session.deleteOne({ _id: id })
+                Session.deleteOne({ _id: docs._id })
                     .then(() => res.sendStatus(200))
                     .catch(err => console.log(err))
             }
