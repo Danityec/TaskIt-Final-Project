@@ -6,6 +6,7 @@ const client = new OAuth2Client(process.env.CLIENT_ID);
 getLogout = (req, res) => {
     res.clearCookie('user')
     res.clearCookie('connect.sid');
+    req.session.destroy((err) => { console.log(err) });
     res.send("logout");
 };
 
@@ -24,8 +25,9 @@ createAuthLogin = async (req, res) => {
     await User.findOne({googleID: payload['sub']})
         .then(docs => {
             if (docs) {
-                res.cookie('user-back', docs, { domain: '.taskitapp.netlify.app' })
-                res.cookie('user-front', docs, { domain: '.task--it.herokuapp.com' })
+                req.session.user = docs
+                // res.cookie('user-back', docs, { domain: '.taskitapp.netlify.app' })
+                // res.cookie('user-front', docs, { domain: '.task--it.herokuapp.com' })
                 res.json(docs)
             } else {
                 let user = {

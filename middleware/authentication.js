@@ -1,5 +1,5 @@
 const checkAuthenticated = (req, res, next) => {
-    if (req.cookies.user) {
+    if (req.session.user) {
         next()
     } else {
         res.status(401).send('user is unauthenticated')
