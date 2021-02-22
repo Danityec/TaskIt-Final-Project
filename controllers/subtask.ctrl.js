@@ -75,7 +75,10 @@ updateSubTask = (req, res) => {
 
     Task.findOne({ _id: req.params.task })
         .then(docs => {
-            docs.subTask.id(req.params.id).set({subtask})
+            docs.subTask.id(req.params.id).set({
+                completed: subtask.completed,
+                name: subtask.name
+            })
             docs.save()
             res.json(docs)
         })
