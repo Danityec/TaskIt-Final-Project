@@ -3,6 +3,7 @@ const Session = require('../models/session');
 const checkAuthenticated = (req, res, next) => {
     Session.findOne({ cookie: req.headers['user'] })
         .then(docs => {
+            console.log('checkAuthenticated = good!!')
             console.log(docs)
             if (docs !== [])
                 next()
