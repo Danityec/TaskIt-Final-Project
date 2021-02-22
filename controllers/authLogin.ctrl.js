@@ -26,9 +26,9 @@ createAuthLogin = async (req, res) => {
         .then(docs => {
             if (docs) {
                 req.session.user = docs
-                // res.cookie('user-back', docs, { domain: '.taskitapp.netlify.app' })
+                res.cookie('user', docs)
                 // res.cookie('user-front', docs, { domain: '.task--it.herokuapp.com' })
-                res.json(req.sessionID)
+                res.json(docs)
             } else {
                 let user = {
                     id: payload['sub'],
