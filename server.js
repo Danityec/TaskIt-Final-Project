@@ -39,6 +39,10 @@ app.use('/api/users', authMiddleware.checkAuthenticated, userRouter.router);
 app.use('/api/chats', authMiddleware.checkAuthenticated, chatRouter.router);
 app.use('/api/reviews', authMiddleware.checkAuthenticated, reviewRouter.router);
 
+app.use('/favicon.ico', ((req, res) => {
+    res.sendStatus(200)
+}));
+
 app.use((req, res) => {
     res.status(500).send('Something is broken!');
 });
