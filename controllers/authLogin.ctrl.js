@@ -6,9 +6,21 @@ const Session = require('../models/session');
 
 getLogout = (req, res) => {
     console.log(req.headers['user'])
-    Session.deleteOne({ cookie: req.headers['user'] })
-        .then(() => res.sendStatus(200))
+    let id = null
+    Session.findOne({ cookie: req.headers['user'] })
+        .then(docs => {
+            console.log(docs)
+            if (docs !== []){
+                Session.deleteOne({ _id: id })
+                    .then(() => res.sendStatus(200))
+                    .catch(err => console.log(err))
+            }
+            else
+                res.sendStatus(200)
+        })
         .catch(err => console.log(err))
+
+
 }
 
 verify = async (token) => {
