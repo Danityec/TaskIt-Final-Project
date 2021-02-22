@@ -7,10 +7,10 @@ const messageSchema = new Schema({
 });
 
 const chatSchema = new Schema({
-    userID1: { type: String, require:true  },
-    userID2: { type: String , require:true },
+    userID1: {type: String, require: true},
+    userID2: {type: String, require: true},
     messages: [messageSchema]
-}, { collection: 'chats' });
+}, {collection: 'chats'});
 
 const Chat = model('Chat', chatSchema);
 

@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const {Router} = require('express');
 const router = new Router();
 
 const taskController = require('../controllers/task.ctrl');
@@ -10,4 +10,4 @@ router.post('/:templateID', taskController.createTaskFromTemplate);
 router.put('/:id', taskController.updateTask);
 router.delete('/:id', taskController.deleteTask);
 
-module.exports = { router };
+module.exports = {router};

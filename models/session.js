@@ -1,9 +1,8 @@
-const { Schema, model } = require('mongoose');
-const User = require('../models/user');
+const {Schema, model} = require('mongoose');
 
 const sessionSchema = new Schema({
-    id: { type: String }
-}, { collection: 'sessions' });
+    id: {type: String}
+}, {collection: 'sessions'});
 
 const Session = model('Session', sessionSchema);
 

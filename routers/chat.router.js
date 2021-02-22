@@ -1,4 +1,4 @@
-const { Router } = require('express');
+const {Router} = require('express');
 const router = new Router();
 
 const chatController = require('../controllers/chat.ctrl');
@@ -10,4 +10,4 @@ router.post('/', chatController.createChat);
 
 router.post('/messages/:id', messageController.createMessage);
 
-module.exports = { router };
+module.exports = {router};
