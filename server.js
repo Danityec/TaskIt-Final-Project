@@ -26,23 +26,23 @@ app.use(morgan('tiny', { stream: logStream }))
 
 
 // *****  session related *******
-const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
-const mongoose = require('./db_connection')
-
-const sessionStore = new MongoStore({
-    mongooseConnection: mongoose.connection,
-    collection: 'sessions',
-    ttl: 1000 * 60 * 60 * 24
-})
-
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    store: sessionStore,
-    cookie: {secure: false}
-}));
+// const session = require('express-session');
+// const MongoStore = require('connect-mongo')(session);
+// const mongoose = require('./db_connection')
+//
+// const sessionStore = new MongoStore({
+//     mongooseConnection: mongoose.connection,
+//     collection: 'sessions',
+//     ttl: 1000 * 60 * 60 * 24
+// })
+//
+// app.use(session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: true,
+//     store: sessionStore,
+//     cookie: {secure: false}
+// }));
 // ***** session related *******
 
 app.get('/quotes', (req, res) => {
