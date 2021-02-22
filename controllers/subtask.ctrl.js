@@ -37,22 +37,45 @@ createSubTask = (req, res) => {
 }
 
 updateSubTask = (req, res) => {
-    const { body } = req
-    let completed = 'false'
+    const {body} = req
+    const subtask = {};
 
-    if (body.name == null || body.name === "") {
-        res.sendStatus(400)
+    if (body.name !== '' && body.name != null) {
+        subtask.name = body.name
     }
+
     if (body.completed === true || body.completed === false) {
-        completed = body.completed
+        subtask.completed = body.completed
     }
+
+    //
+    // Task.updateOne({_id: req.params.id}, task)
+    //     .then(() => {
+    //         Task.findOne({_id: req.params.id})
+    //             .then(docs => res.json(docs))
+    //             .catch(err => console.log(err))
+    //     })
+    //     .catch(err => console.log(err))
+    //
+    //
+
+    //
+    // const { body } = req
+    // let completed = 'false'
+    //
+    // if (body.name !== '' && body.name != null) {
+    //     name = body.name
+    // }
+    // // if (body.name == null || body.name === "") {
+    // //     res.sendStatus(400)
+    // // }
+    // if (body.completed === true || body.completed === false) {
+    //     completed = body.completed
+    // }
 
     Task.findOne({ _id: req.params.task })
         .then(docs => {
-            docs.subTask.id(req.params.id).set({
-                name: body.name,
-                completed: completed
-            })
+            docs.subTask.id(req.params.id).set({subtask})
             docs.save()
             res.json(docs)
         })
