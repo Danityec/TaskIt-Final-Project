@@ -38,15 +38,15 @@ createSubTask = (req, res) => {
 
 updateSubTask = (req, res) => {
     const {body} = req
-    const subtask = {};
-
-    if (body.name !== '' && body.name != null) {
-        subtask.name = body.name
-    }
-
-    if (body.completed === true || body.completed === false) {
-        subtask.completed = body.completed
-    }
+    // const subtask = {};
+    //
+    // if (body.name !== '' && body.name != null) {
+    //     subtask.name = body.name
+    // }
+    //
+    // if (body.completed === true || body.completed === false) {
+    //     subtask.completed = body.completed
+    // }
 
     //
     // Task.updateOne({_id: req.params.id}, task)
@@ -75,6 +75,16 @@ updateSubTask = (req, res) => {
 
     Task.findOne({ _id: req.params.task })
         .then(docs => {
+            const subtask = {
+                name: docs.subTask.id(req.params.id).name,
+                completed: docs.subTask.id(req.params.id).completed,
+            }
+            if (body.name !== '' && body.name != null) {
+                subtask.name = body.name
+            }
+            if (body.completed === true || body.completed === false) {
+                subtask.completed = body.completed
+            }
             docs.subTask.id(req.params.id).set({
                 completed: subtask.completed,
                 name: subtask.name
